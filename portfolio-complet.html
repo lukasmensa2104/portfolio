@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukas Mensa - Portfolio BTS SIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-dark: #0a0a0a;
+            --color-light: #fafafa;
+            --color-accent: #2d5a3d;
+            --color-accent-light: #4a8a5f;
+            --color-gray: #666666;
+            --color-gray-light: #e0e0e0;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-dark);
+            background-color: var(--color-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-gray-light);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--color-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav ul a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        nav ul a:hover {
+            color: var(--color-accent);
+        }
+
+        nav ul a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(45, 90, 61, 0.06) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, 30px) rotate(5deg); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--color-gray);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-light);
+            border-color: var(--color-accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(45, 90, 61, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-dark);
+            border-color: var(--color-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(45, 90, 61, 0.2) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-image-wrapper:hover::after {
+            opacity: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5% 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--color-accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: var(--color-gray);
+            max-width: 700px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Content Section */
+        .content-section {
+            margin-top: 2rem;
+        }
+
+        .content-block {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .content-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-block h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .content-block h4 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: 600;
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--color-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: var(--color-gray);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .content-block li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .image-item {
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            object-fit: contain;
+            background: white;
+            transition: transform 0.3s ease;
+            padding: 1rem;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-gray);
+            border-top: 1px solid var(--color-gray-light);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 2px;
+            border: 1px solid var(--color-gray-light);
+            margin: 3rem 0;
+        }
+
+        .skills-section h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--color-accent);
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--color-accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(45, 90, 61, 0.2);
+        }
+
+        /* Veille Section */
+        .veille-resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 2px;
+            border: 1px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-accent);
+        }
+
+        .resource-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent);
+        }
+
+        .resource-card a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Quote Block */
+        .quote-block {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 2px;
+            margin: 4rem 0;
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .quote-block::before {
+            content: '"';
+            font-size: 6rem;
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+            opacity: 0.3;
+            font-family: var(--font-display);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 8rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 6rem 5% 3rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#accueil" class="logo">Lukas Mensa</a>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#parcours">Parcours</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#veille">Veille</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-subtitle">Portfolio Professionnel</div>
+                <h1>Bonjour,<br>Bienvenue sur mon portfolio</h1>
+                <p class="hero-description">
+                    Un portfolio est un moyen de présenter mon parcours scolaire et professionnel, ainsi que les projets que j'ai menés en entreprise. C'est aussi un espace pour partager ma veille technologique. N'hésitez pas à explorer et à me contacter pour en savoir plus.
+                </p>
+                <div class="hero-cta">
+                    <a href="#parcours" class="btn btn-primary">Mon Parcours</a>
+                    <a href="#projets" class="btn btn-secondary">Mes Projets</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <img src="https://static.wixstatic.com/media/27cb0c_a68a068ede534e24ae9074f20891af02~mv2.jpg/v1/crop/x_0,y_744,w_2976,h_2976/fill/w_480,h_480,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1A8A4971_JPG.jpg" alt="Lukas Mensa">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos Section -->
+    <section>
+        <div class="section-header">
+            <div class="section-number">01 / PRÉSENTATION</div>
+            <h2 class="section-title">Pourquoi ce portfolio ?</h2>
+        </div>
+        <div class="content-section">
+            <div class="content-block">
+                <p>
+                    Dans le cadre de ma formation, j'ai réalisé plusieurs tâches à mettre en valeur. Ce portfolio étant une opportunité de valoriser mon parcours, scolaire et professionnel, mes projets menés, ainsi qu'une veille technologique que je mène.
+                </p>
+                <p>
+                    Vous pourrez découvrir tout ceci en naviguant à travers les différentes sections afin de vous diriger vers les pages convenantes !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parcours Section -->
+    <section id="parcours">
+        <div class="section-header">
+            <div class="section-number">02 / FORMATION</div>
+            <h2 class="section-title">Parcours scolaire et expériences professionnelles</h2>
+            <p class="section-description">
+                Étant passé par différentes étapes, je développe dans cette section mon parcours scolaire et professionnel. Bachelier, Employé en CDI, Reconversion, tout est recensé dans cette page où vous pourrez en apprendre plus sur moi et mes ambitions.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <!-- Baccalauréat -->
+            <div class="content-block">
+                <h3>Baccalauréat</h3>
+                <p>
+                    Lycéen dans l'établissement de Jacques Arsène d'Arsonval à Brive-la-Gaillarde en Corrèze, je décroche mon premier diplôme majeur en 2022 qui est le baccalauréat général spécialité: AMC (Anglais Monde Contemporain), CAV (Cinéma Audio-Visuel) et option Italien.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_a355f6dd501540b8a249e47abddf25df~mv2.png/v1/fill/w_396,h_249,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_a355f6dd501540b8a249e47abddf25df~mv2.png" alt="Logo Lycée">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_0bfa5c6ff6c14849a109d09d25cb2503~mv2.jpeg/v1/fill/w_419,h_263,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/chantier-cite-scolaire-d-arsonval-travaux-lycee-college_3972966.jpeg" alt="Vue du lycée">
+                        <div class="image-caption">Vue du lycée</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_1bedc5faa18644dab14f882d7fd148d3~mv2.png/v1/fill/w_393,h_269,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-14_141704904.png" alt="Lycée d'Arsonval">
+                    </div>
+                </div>
+
+                <p>
+                    D'abord intéressé par le milieu du Cinéma, je me spécialise dans l'audiovisuel avec la spécialité CAV, rare en France, qui me donne l'opportunité de construire mon diplôme autour de ceci. J'ai pu avoir accès à du matériel professionnel, ceci était une première rencontre avec du média informatique, bien avant d'en arriver où j'en suis aujourd'hui.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/11062b_979c6676ddf4470b947910899893c74e~mv2.jpg/v1/fill/w_422,h_372,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_979c6676ddf4470b947910899893c74e~mv2.jpg" alt="Matériel audiovisuel">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/0fc820b444c64c6da606fc2fa09830cc.jpg/v1/fill/w_422,h_372,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Film%20Reels.jpg" alt="Film Reels">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/7c7ed1f7f96a4740be0df4f223475588.jpg/v1/fill/w_409,h_275,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/7c7ed1f7f96a4740be0df4f223475588.jpg" alt="Équipement photo">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/11062b_cdde939992964b469aafdcfb6e07bb55~mv2.jpg/v1/fill/w_392,h_221,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Tournage%20de%20mode%20en%20studio.jpg" alt="Tournage studio">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/85cdf4fe7e9544a38b05adc2a54dba92.jpg/v1/fill/w_439,h_247,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Configuration%20de%20Photoshoot.jpg" alt="Configuration Photoshoot">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emploi en CDI -->
+            <div class="content-block">
+                <h3>Emploi en CDI</h3>
+                <p>
+                    Le bac obtenu, je décide d'arrêter les études d'audiovisuel en raison d'un manque cruel de places dans les écoles supérieures me fermant toutes les portes. Je trouve alors un CDI en restauration rapide, m'offrant une première expérience et un premier contact avec le monde professionnel.
+                </p>
+                <p>
+                    Cette période m'a enseigné la vie en entreprise et son fonctionnement, me faisant acquérir des compétences telles que la gestion des stocks, la rapidité d'exécution, ou encore, la coordination et l'adaptation d'un travail en équipe. Ayant passé près de 1 an à y travailler de Août 2023 à Juin 2024, cette opportunité m'a permis d'économiser de l'argent et de me payer des études vers un domaine qui m'a plu sur le tard, l'informatique.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_98b6ec872d5e44cdb2784a0df089338d~mv2.jpg/v1/fill/w_345,h_230,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_6193_1.jpg" alt="Restaurant">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_ade513fa593c4ed4b69e92cd4761b988~mv2.webp/v1/fill/w_230,h_155,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kuala-lumpur-malaysia-november-22-600nw-2501185993.webp" alt="Restaurant extérieur">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/11062b_e3ab7525c569460caceef63962c99b26~mv2.jpg/v1/fill/w_311,h_218,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/restaurant%20int%C3%A9rieur.jpg" alt="Intérieur restaurant">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reprise des études -->
+            <div class="content-block">
+                <h3>Reprise des études, rencontre avec l'Informatique</h3>
+                <p>
+                    Me voilà enfin arrivé dans le milieu des études supérieures, préparant un BTS SIO (Services Informatique aux Organisations). Je redéménage en Île-de-France pour suivre cette formation à l'école IPSSI de Marne-la-Vallée proposant 2 options de spécialités: SLAM (Solutions Logiciels et Applications Métiers) et SISR (Solutions d'Infrastructure Système et Réseaux).
+                </p>
+                <p>
+                    Au premier semestre de cette première année, j'ai pu expérimenter les 2 spécialités de cette formation, m'offrant des connaissances dans les 2 domaines. Je décide, cependant de choisir l'option de spécialité SISR pour me spécialiser dans l'infrastructure réseaux. Ma formation comprend une brève mais complète introduction au domaine de la cybersécurité ce qui me permet d'ouvrir davantage mes horizons dans le domaine de l'informatique.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_e8ac33c13bb747ea98d781a28f9ff6d8~mv2.jpg/v1/fill/w_370,h_247,al_c,lg_1,q_80,enc_avif,quality_auto/IPSSI-logo-300.jpg" alt="IPSSI Logo">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_a84060b49fd147d7bde9ec5427ef56ed~mv2.jpg/v1/fill/w_393,h_262,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IPSSI-Lyon-3-scaled.jpg" alt="IPSSI Campus">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets Section -->
+    <section id="projets">
+        <div class="section-header">
+            <div class="section-number">03 / RÉALISATIONS</div>
+            <h2 class="section-title">Mes projets</h2>
+            <p class="section-description">
+                Découvrez les projets que j'ai réalisés et menés. Un tableau de compétences est aussi mis en valeur démontrant tous mes apprentissages ainsi que mon évolution dans le milieu de l'informatique.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <!-- Introduction -->
+            <div class="content-block">
+                <p>
+                    Ces projets ont été réalisés au cours de ma formation BTS SIO ainsi qu'en entreprise, lors de mon stage et alternance. Ces domaines sont en progression et seront alimentés quotidiennement.
+                </p>
+
+                <h4>Projets Scolaires:</h4>
+                <ul>
+                    <li>Réalisation d'une bibliothèque en ligne (SLAM)</li>
+                    <li>Initiation aux langages de codage (PHP, HTML, SQL, ...) (SLAM)</li>
+                    <li>Réalisation d'un patrimoine réseau pour une entreprise fictive (SISR)</li>
+                    <li>Création de schémas réseaux sur Cisco Packet Tracer (SISR)</li>
+                    <li>Création de machines virtuelles sur VMware (SISR)</li>
+                    <li>Étude des domaines (SISR)</li>
+                </ul>
+
+                <h4>Projets en Entreprise:</h4>
+                <ul>
+                    <li>Masterisation d'ordinateurs pour les mettre au format de l'entreprise</li>
+                    <li>Installation de station d'accueil Dell pour les collaborateurs</li>
+                    <li>Support IT et test de matériels informatiques</li>
+                    <li>Brassage et débrassage de prises RJ45</li>
+                    <li>Démontage d'ordinateurs et remplacement de composants</li>
+                    <li>Transfert de données entre ordinateurs</li>
+                    <li>Travail d'équipe avec un autre stagiaire</li>
+                </ul>
+            </div>
+
+            <!-- Projets SLAM -->
+            <div class="content-block">
+                <h3>Projets Scolaire partie SLAM</h3>
+                <p>
+                    Lors de ma formation j'ai été amené à réaliser plusieurs projets dans la matière SLAM. N'étant pas ma spécialité de prédilection, ces derniers m'ont permis d'accroître mes compétences et de fructifier mes connaissances en informatique.
+                </p>
+                <p>
+                    Ainsi j'ai pu réaliser en binôme une bibliothèque codée en HTML et CSS sur le thème de la saga Star Wars, répertoriant 10 livres et toutes leurs informations. Cette expérience m'a permis de me familiariser avec les différents langages et procédures de programmation et codage.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/11062b_23322e849f0b4b57ba009b9e55878791~mv2.jpg/v1/fill/w_376,h_250,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_23322e849f0b4b57ba009b9e55878791~mv2.jpg" alt="Code">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/704318ee9be94acabf28919a734951b8.jpg/v1/fill/w_440,h_293,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Console%20de%20programmation.jpg" alt="Console de programmation">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/11062b_3bc0a742dcc54a698a440056823c715f~mv2.jpg/v1/fill/w_971,h_399,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_3bc0a742dcc54a698a440056823c715f~mv2.jpg" alt="Bibliothèque Star Wars">
+                        <div class="image-caption">Projet bibliothèque Star Wars</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_13f7a905a28c4f8cb3810b31d00d782f~mv2.jpg/v1/fill/w_312,h_178,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/HTML-CSS.jpg" alt="HTML CSS">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_a3c488f87342450ab2bebe8e7968b033~mv2.jpg/v1/fill/w_282,h_130,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/php-sql.jpg" alt="PHP SQL">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_75c5e27d38f843128d1e0e693ee1fa0f~mv2.png/v1/fill/w_312,h_178,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image0.png" alt="Projet code">
+                    </div>
+                </div>
+
+                <p>
+                    J'ai pu également expérimenter le SQL, qui est un langage de base de données, à travers différents exercices de formations. La matière SLAM m'a enseigné les fondements de l'informatique et son évolution, afin de comprendre comment nous sommes arrivés à ce niveau de technologie.
+                </p>
+            </div>
+
+            <!-- Projets SISR -->
+            <div class="content-block">
+                <h3>Projets Scolaires partie SISR</h3>
+                <p>
+                    En plus de la matière SLAM, j'ai été confronté à une autre matière qui devient ma spécialité primaire, la matière SISR (Solution d'Infrastructure, Système et Réseaux). Les projets de cette matière ont été plus remplis et plus précis que celle de la matière SLAM.
+                </p>
+                <p>
+                    J'ai pu réaliser des schémas de réseaux sur le logiciel Cisco Packet Tracer, un logiciel très efficace pour virtualiser et imiter du réseautage sans prendre le risque de mal configurer de vrais appareils. Nous avons pu, en classe, réaliser différentes topologies de réseaux (en étoile, en bus, en anneaux, ...) afin de comprendre les multiples façons de créer du réseau dans une organisation professionnelle ou non professionnelle.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_1f1e719d4ddc415bb1f0e2cd9cec4f4a~mv2.jpg/v1/fill/w_654,h_361,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/hq720.jpg" alt="Topologie en étoile sur Packet Tracer">
+                        <div class="image-caption">Topologie en étoile sur Packet Tracer</div>
+                    </div>
+                </div>
+
+                <p>
+                    La principale idée du réseau est de faire communiquer des machines entre elles, s'échangeant des informations, des données ou tout type d'objets informatiques. Ainsi, j'ai pu étudier le protocole DHCP, protocole qui permet d'attribuer un bail d'une adresse IP pendant une certaine durée lors de sa connexion. L'étude du domaine, ce dernier étant un système reliant plusieurs machines dans un même regroupement. Ou encore le DNS (Domain Name Server) étant un serveur capable de traduire le langage de l'IP en nom lisible.
+                </p>
+
+                <h4>Projet d'entreprise fictive GSB</h4>
+                <p>
+                    J'ai aussi été amené à travailler en groupe pour renouveler l'architecture informatique d'une entreprise fictive. Nous avons effectué la recherche d'équipement matériel adéquat pour les employés comme les ordinateurs, les solutions logiciels (anti-virus, vpn), ou encore des éléments plus techniques telles que la plage d'adressage IP et les équipements réseaux.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_d9ac2bc350c441efaa920a608c7d2f63~mv2.png/v1/fill/w_355,h_208,al_c,lg_1,q_85,enc_avif,quality_auto/image_2025-06-21_003055420.png" alt="Schéma GSB">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_145cf56881cc487da2571af2d4fb7b27~mv2.png/v1/fill/w_600,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-21_003247914.png" alt="Architecture réseau GSB">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_0292ca465bed42adb9af1a4964ebc65c~mv2.png/v1/fill/w_975,h_483,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-21_003336542.png" alt="Tableau projet GSB">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_98fa0da7c04443bcbd56b205245b6e7d~mv2.png/v1/fill/w_600,h_281,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-22_122611600.png" alt="Machines virtuelles">
+                        <div class="image-caption">Travail sur machines virtuelles</div>
+                    </div>
+                </div>
+
+                <p>
+                    Travailler sur des machines virtuelles a aussi fait partie de ma formation, me faisant découvrir, par des exemples et de la pratique concrète, comment fonctionnent les serveurs et les domaines. J'ai pu simuler du Windows Server et connecter les machines entre elles avec des IP fixes.
+                </p>
+            </div>
+
+            <!-- Projets en entreprise -->
+            <div class="content-block">
+                <h3>Projets en entreprise</h3>
+                
+                <h4>Stage - Seine-Saint-Denis Habitat</h4>
+                <p>
+                    Lors de mes passages en entreprise, notamment durant mon stage, j'ai été amené à réaliser plusieurs projets. J'ai effectué mon stage auprès de Seine-Saint-Denis Habitat dans la commune de Bobigny. Cette entreprise est le premier bailleur social du département gérant environ 32 000 logements sur une trentaine de communes réparties dans toute la Seine-Saint-Denis.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_42bead38d15f4d7d9864781d62e3f42d~mv2.png/v1/fill/w_505,h_276,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-25_233624539.png" alt="Seine-Saint-Denis Habitat">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_3371abb74dfa4a47a86c5064d3a6680b~mv2.jpg/v1/fill/w_361,h_149,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1255.jpg" alt="Travail stage 1">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_6e9691c5f5cf4fb091d9ba4c80cc13f7~mv2.jpg/v1/fill/w_361,h_158,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1256.jpg" alt="Travail stage 2">
+                    </div>
+                </div>
+
+                <h4>Missions réalisées:</h4>
+                
+                <p><strong>Masterisation d'ordinateurs:</strong></p>
+                <p>
+                    L'une de mes premières missions a été de masteriser des ordinateurs. Le rôle de la masterisation est de rendre tous les ordinateurs similaires avec les mêmes fichiers, dossiers ou logiciels. L'objectif principal est que chaque utilisateur se retrouve avec la même configuration d'ordinateur pour pouvoir travailler. Ainsi, j'ai réalisé plus d'une cinquantaine de masterisations.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_818eb5fd794c4abaaf4402a9c850c4cb~mv2.jpg/v1/fill/w_384,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/image6.jpg" alt="Masterisation">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_b8856ccd8a2b46dcb3ae7b479717c2db~mv2.jpg/v1/fill/w_384,h_296,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1281.jpg" alt="Ordinateurs masterisés">
+                    </div>
+                </div>
+
+                <p><strong>Installation de postes et stations d'accueil:</strong></p>
+                <p>
+                    Une fois les masterisations effectuées, j'ai pu participer à l'installation de postes et de stations d'accueil. Les stations d'accueil sont de petits boîtiers très utiles qui servent à brancher tout type de câbles, facilitant la mobilité et réduisant l'espace encombrant d'une tour.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_6611d72f6b434b18bf2dc2a607e541ce~mv2.jpg/v1/fill/w_442,h_331,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1260.jpg" alt="Installation poste">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_59404ad9f59547ac8ebc27c005a66853~mv2.jpg/v1/fill/w_442,h_331,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1261.jpg" alt="Station d'accueil">
+                    </div>
+                </div>
+
+                <p><strong>Support IT et tests:</strong></p>
+                <p>
+                    Le métier comprend également du support IT et du test de matériel informatique. J'ai eu à contacter des collaborateurs afin de résoudre leurs problèmes via la gestion de tickets informatiques. Il m'a aussi été confié d'effectuer des tests de fonctionnalités des machines, en vérifiant la partie hardware ainsi que des éléments de la partie software.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_4dc22e08b02e4c0b81a57188280adbe3~mv2.png/v1/fill/w_330,h_309,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-23_220742543.png" alt="HWinfo">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_d0697a36a2d341cb85b5fa0a71c1e265~mv2.png/v1/fill/w_459,h_309,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-23_221136402.png" alt="Tests hardware">
+                    </div>
+                </div>
+
+                <p><strong>Transferts de données et démontage:</strong></p>
+                <p>
+                    Nous avons réalisé des transferts de données entre ordinateurs. Il m'arrivait aussi d'avoir à démonter les ordinateurs pour remplacer des composants tels que les cartes NVMe. Je fus accompagné pour réaliser ces tâches jusqu'à les faire en total autonomie par la suite.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_86fae993a9e14192a150b40dd8e5a6c8~mv2.png/v1/fill/w_600,h_453,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-23_221427273.png" alt="Transfert de données">
+                    </div>
+                </div>
+
+                <p><strong>Brassage réseau:</strong></p>
+                <p>
+                    Avec un autre stagiaire, nous avons effectué un travail d'équipe concernant la baie de brassage. Nous avons dû effectuer des contrôles concernant les branchements RJ45 et vérifier si ces derniers étaient bien actifs, non inversés ou branchés inutilement. Cette expérience était ma première mission en lien direct avec le réseau de l'entreprise.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_bf0351824c874dfda580286a931d9813~mv2.jpg/v1/fill/w_323,h_256,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_bf0351824c874dfda580286a931d9813~mv2.jpg" alt="Baie de brassage">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_38ec30c3077346b8a7d849e22080d4cf~mv2.jpg/v1/fill/w_397,h_529,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1282.jpg" alt="Travail brassage">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_cccf5592e0984500b8d11193154c1055~mv2.jpg/v1/fill/w_330,h_363,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_cccf5592e0984500b8d11193154c1055~mv2.jpg" alt="Câblage réseau">
+                    </div>
+                </div>
+
+                <h4>Alternance - 3it-consulting</h4>
+                <p>
+                    Depuis le 12 Novembre 2025, je suis sous contrat d'alternance avec l'entreprise: 3it-consulting. Cette entreprise, située à Chauconin-Neufmontiers en Seine-et-Marne, n'est gérée que par une seule personne en freelance et existe depuis 2022. Mon supérieur, M. Barlier, m'a accordé sa confiance et son expertise pour me former et m'enseigner les bases du métier de Technicien Système Réseau.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_0f924e401c3c451dbb69dc1b2a9df0cb~mv2.png/v1/fill/w_421,h_319,al_c,q_85,enc_avif,quality_auto/image_2025-11-28_130426401.png" alt="3it-consulting">
+                    </div>
+                </div>
+
+                <h4>Projets réalisés chez 3it-consulting:</h4>
+                
+                <p><strong>Microsoft 365:</strong></p>
+                <p>
+                    Nous travaillons majoritairement avec Microsoft 365 pour créer des architectures et hiérarchies de comptes. J'ai notamment travaillé sur la configuration de SharePoint pour la gestion documentaire et PowerAutomate pour automatiser le traitement des documents scannés.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_8d0f929144ac462b988af44f65d7a450~mv2.png/v1/fill/w_365,h_357,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_8d0f929144ac462b988af44f65d7a450~mv2.png" alt="SharePoint">
+                        <div class="image-caption">SharePoint</div>
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_10f53795815c49428e187e1cccde8a61~mv2.png/v1/fill/w_365,h_357,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_10f53795815c49428e187e1cccde8a61~mv2.png" alt="PowerAutomate">
+                        <div class="image-caption">PowerAutomate</div>
+                    </div>
+                </div>
+
+                <p><strong>Jotelulu - Gestion de serveurs:</strong></p>
+                <p>
+                    Pour gérer toutes les organisations avec lesquelles nous travaillons, nous utilisons un service web nommé Jotelulu. Cette plateforme nous permet de regrouper et gérer facilement plusieurs architectures de serveurs via la même interface. J'ai travaillé sur la configuration et la gestion de serveurs Windows pour différents clients.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_c681ab63b4b34ef0b9f3912fc064cd3e~mv2.png/v1/fill/w_600,h_300,al_c,q_85,enc_avif,quality_auto/27cb0c_c681ab63b4b34ef0b9f3912fc064cd3e~mv2.png" alt="Jotelulu interface">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_dec04794020e4782a36bb6e04deb0c8e~mv2.png/v1/fill/w_458,h_302,al_c,q_85,enc_avif,quality_auto/27cb0c_dec04794020e4782a36bb6e04deb0c8e~mv2.png" alt="Jotelulu dashboard">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_3bf28ec9ae0a47a294bcb1ed25949d05~mv2.png/v1/fill/w_469,h_195,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_3bf28ec9ae0a47a294bcb1ed25949d05~mv2.png" alt="Jotelulu serveurs">
+                        <div class="image-caption">Gestion des serveurs Windows via Jotelulu</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau de compétences -->
+            <div class="skills-section">
+                <h3>Tableau de compétences</h3>
+                <p>Retrouvez l'ensemble de mes compétences acquises tout au long de ma formation et de mes expériences professionnelles.</p>
+                <a href="https://d9603352-1bf2-4f1a-90de-981b8fa92a4c.filesusr.com/ugd/27cb0c_a334a0f7d60840a5a6337cf6cc75a848.pdf" target="_blank" class="btn-download">
+                    📄 Télécharger le tableau de compétences
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Veille Section -->
+    <section id="veille">
+        <div class="section-header">
+            <div class="section-number">04 / ACTUALITÉ</div>
+            <h2 class="section-title">Veille Technologique</h2>
+        </div>
+
+        <div class="content-section">
+            <div class="content-block">
+                <p>
+                    Le monde de l'informatique et du numérique est un monde fascinant qui ne cesse de s'améliorer au fur et à mesure des années, mois, jours ou heures. Rester informé est primordial pour ne pas être dépassé. C'est là toute l'importance d'une veille technologique qui permet de se tenir au courant des nouvelles actualités et des avancées du domaine.
+                </p>
+                <p>
+                    Perdre le fil n'est pas une option lorsque nous voulons nous plonger dans cet univers et l'information reste au cœur de l'informatique. Voici donc une présentation de ma veille technologique !
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h3>Mes sources d'information</h3>
+                <p>Pour me tenir informé dans le milieu de l'informatique, j'utilise de nombreux moyens :</p>
+            </div>
+
+            <div class="veille-resources">
+                <div class="resource-card">
+                    <h4>📊 High-Tech</h4>
+                    <p>LeBigData</p>
+                    <a href="https://www.lebigdata.fr" target="_blank">www.lebigdata.fr</a>
+                </div>
+                <div class="resource-card">
+                    <h4>🔒 Cybersécurité</h4>
+                    <p>The Hacker News</p>
+                    <a href="https://thehackernews.com" target="_blank">thehackernews.com</a>
+                </div>
+                <div class="resource-card">
+                    <h4>🌐 Réseau</h4>
+                    <p>Cisco Blog</p>
+                    <a href="https://blogs.cisco.com/networking" target="_blank">blogs.cisco.com/networking</a>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h4>Réseaux sociaux :</h4>
+                <p>D'autres solutions comme les réseaux sociaux sont aussi utilisées : YouTube, Reddit, TikTok, Instagram...</p>
+                
+                <h4>Exemple d'Influenceur Informatique de qualité:</h4>
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_ad0dc1c800bf41b1a32d982c6e32dc5d~mv2.png/v1/fill/w_840,h_233,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_ad0dc1c800bf41b1a32d982c6e32dc5d~mv2.png" alt="Micode" style="object-fit: contain; height: 150px;">
+                    </div>
+                </div>
+                <p>
+                    Avec ses 1,7 Millions d'abonnés et ses 110 Millions de vues sur YouTube, Micode représente une référence dans le milieu de l'Informatique. Il possède également un compte Instagram de 90 000 abonnés environ.
+                </p>
+            </div>
+
+            <!-- Sujet de veille principal -->
+            <div class="content-block">
+                <h3>La place de la France sur le marché de l'Intelligence Artificielle</h3>
+                <p>
+                    Voici un exemple de ce que j'apprends au quotidien avec mon information personnelle. Je vais traiter d'un sujet très intéressant et qu'il est important d'avoir en connaissance pour soi mais aussi pour l'avenir.
+                </p>
+                <p>
+                    Le milieu de l'Intelligence Artificielle, un domaine de l'informatique en pleine explosion depuis quelques années, nous offre énormément de nouvelles possibilités. Cependant, l'IA ne date pas d'hier malgré sa popularité récente et son exploitation assez intensive de plusieurs organisations, étudiants ou gouvernements. Deux pays se sont réellement démarqués ces dernières années, les États-Unis et la Chine, cependant un pays cherche à développer sa propre IA pour rester en course, la France.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_abb8984096c6405db41d2ed21f06e5a6~mv2.png/v1/fill/w_575,h_554,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_abb8984096c6405db41d2ed21f06e5a6~mv2.png" alt="Stratégie IA France">
+                    </div>
+                </div>
+
+                <h4>La stratégie française</h4>
+                <p>
+                    En effet, la France a, depuis 2018, lancé sa campagne de mobilisation au développement de sa propre intelligence artificielle. Ce projet a pour but de mettre la France à un rang élevé sur les nouvelles technologies et, ainsi, ne pas être dépendante des autres puissances. Cela permettrait au pays de concurrencer les gros du domaine de l'IA tel que ChatGPT pour les USA ou Deepseek pour la Chine.
+                </p>
+
+                <h4>Mistral IA - Le champion français</h4>
+                <p>
+                    Notre prodige sur lequel nous plaçons beaucoup d'espoir se nomme Mistral IA. Cette entreprise a été fondée en Avril 2023 et laisse présager un bel avenir pour le futur de l'IA française.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_05a7c79368fd4c8c9214d60ddcd4bb3d~mv2.png/v1/fill/w_719,h_368,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_05a7c79368fd4c8c9214d60ddcd4bb3d~mv2.png" alt="Mistral IA">
+                    </div>
+                </div>
+
+                <p>Comme annoncé sur son site, cette IA a de grandes ambitions. Elle peut déjà :</p>
+                
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_ac1c4cd8449f4dd998f5c8436caa47eb~mv2.png/v1/fill/w_600,h_211,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_ac1c4cd8449f4dd998f5c8436caa47eb~mv2.png" alt="Mistral apprentissage">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_8e575bfa808647b5a647b2cf9fd82fa5~mv2.png/v1/fill/w_600,h_197,al_c,q_85,enc_avif,quality_auto/27cb0c_8e575bfa808647b5a647b2cf9fd82fa5~mv2.png" alt="Mistral automatisation">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_445061731aaf40cfb1819ab06d802086~mv2.png/v1/fill/w_600,h_188,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_445061731aaf40cfb1819ab06d802086~mv2.png" alt="Mistral hébergement">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_ea51b0ba8d9449909ae42a1a076b6c40~mv2.png/v1/fill/w_600,h_188,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_ea51b0ba8d9449909ae42a1a076b6c40~mv2.png" alt="Mistral sécurité">
+                    </div>
+                </div>
+                
+                <ul>
+                    <li>Apprendre en fonction de notre utilisation</li>
+                    <li>S'automatiser en format d'entreprise</li>
+                    <li>Être utilisée sur n'importe quel hébergement</li>
+                    <li>Être équipée d'une sécurité accrue et efficace</li>
+                </ul>
+
+                <h4>Positionnement de la France</h4>
+                <p>
+                    La France se positionne aujourd'hui comme le premier pays européen du secteur. 1,3 Milliards d'Euros ont été investis dans le développement de l'IA Made In France et ce budget atteindra très prochainement les 2,1 Milliards d'Euros d'ici 2030.
+                </p>
+                <p>
+                    Avec ses recherches, elle se positionne aussi à la 3e place mondiale des pays les plus actifs dans la science de l'IA et ces chiffres ne font qu'augmenter. Avec des atouts majeurs comme l'implémentation récente de datacenters ou une électricité saine et stable, la France se projette vers un avenir positif et radieux.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_4a06a4cc2aa1430c81060f646d5e44b3~mv2.png/v1/fill/w_408,h_600,al_c,q_85,enc_avif,quality_auto/27cb0c_4a06a4cc2aa1430c81060f646d5e44b3~mv2.png" alt="Stats IA France">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_f727bab83aa547cabdb400795fca0eae~mv2.png/v1/fill/w_526,h_600,al_c,q_85,enc_avif,quality_auto/27cb0c_f727bab83aa547cabdb400795fca0eae~mv2.png" alt="Business France IA">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_f6db6d3a83034279bb635f0c99fc24fc~mv2.png/v1/fill/w_444,h_356,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_f6db6d3a83034279bb635f0c99fc24fc~mv2.png" alt="Investissements IA">
+                    </div>
+                </div>
+
+                <h4>Formation et éthique</h4>
+                <p>
+                    Le pays s'investit aussi dans la formation de ses jeunes. De nombreuses écoles informatiques françaises se voient instruire les fondements de l'intelligence artificielle afin de créer les futures pépites de la nation. Ayant déjà un bon nombre d'experts dans ses rangs, la France cherche constamment à se renforcer et à devenir un pionnier.
+                </p>
+                <p>
+                    Avec un bond immense de la 13e place en 2023, à la 5e place en 2024, au Global AI Index, unité qui sert à mesurer le niveau technologique des nations sur l'intelligence artificielle, elle se permet de prendre beaucoup d'assurance dans son projet et de se développer très rapidement.
+                </p>
+                <p>
+                    Néanmoins, contrairement aux controverses des grandes puissances d'intelligence artificielle, la France promet de bâtir une IA éthique, respectant les données personnelles et de ne pas les collecter à des fins commerciales.
+                </p>
+
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_7da16651e5cf4f1e87318ce6d0df6406~mv2.png/v1/fill/w_600,h_58,al_c,q_85,enc_avif,quality_auto/27cb0c_7da16651e5cf4f1e87318ce6d0df6406~mv2.png" alt="Global AI Index">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://static.wixstatic.com/media/27cb0c_87c1f394a8224f1684cafe963347f74b~mv2.png/v1/fill/w_600,h_358,al_c,q_85,enc_avif,quality_auto/27cb0c_87c1f394a8224f1684cafe963347f74b~mv2.png" alt="IA éthique Forbes">
+                    </div>
+                </div>
+
+                <h4>Une vision européenne</h4>
+                <p>
+                    Au-delà de la France, c'est toute l'Europe qui est derrière ce projet. Bien que la France en soit le leader, l'idée principale est d'apporter une troisième voie pour concurrencer la Chine et les États-Unis.
+                </p>
+            </div>
+
+            <div class="quote-block">
+                L'IA prend une place très importante au sein de nos vies pour des tâches banales ou plus professionnelles. Dans cet ère numérique, le pays cherche à regagner en notoriété et est prêt à investir énormément de moyens pour y parvenir.
+            </div>
+
+            <div class="content-block">
+                <h4>Pour Conclure</h4>
+                <p>
+                    Nous sommes en train d'assister à une bataille technologique entre trois camps qui cherchent à repousser les limites de cette technologie. Il est ainsi possible d'imaginer que l'IA puisse intervenir dans des domaines tels que la gestion réseau en milieu professionnel, ou dans d'autres caractéristiques de l'informatique.
+                </p>
+                <p>
+                    Nous pourrions voir une automatisation des réseaux, complètement entretenue et maintenue par une IA ou des applications/logiciels entièrement développés par Intelligence Artificielle. Mais n'allons-nous pas trop loin avec cette technologie qui donne une impression de ressource inépuisable ?
+                </p>
+                <p>
+                    Il y a beaucoup de points positifs à en tirer mais également du négatif. Si cette technologie est utilisable pour faire le bien, elle peut également être utilisée à mauvais escient. Nous prenons le risque de supprimer l'implication humaine dans l'informatique et plus encore, d'autres disciplines comme l'art pourraient bien être mises en danger.
+                </p>
+                <p>
+                    Cette technologie des temps modernes n'est pas encore maîtrisée et n'a pas encore exploité tout son potentiel. La question qui reste encore dans la tête de beaucoup de personnes c'est : comment cette dernière risque-t-elle d'évoluer ?
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>Lukas Mensa</h3>
+                <p>
+                    Étudiant en BTS SIO option SISR. Passionné par l'infrastructure réseau, la cybersécurité et les nouvelles technologies.
+                </p>
+                <p style="font-size: 0.9rem; margin-top: 2rem;">
+                    Portfolio créé avec passion et attention aux détails.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul class="footer-links">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#parcours">Parcours</a></li>
+                    <li><a href="#projets">Projets</a></li>
+                    <li><a href="#veille">Veille</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:contact@lukasmensa.fr">Email</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Lukas Mensa. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.section-header, .content-block, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
