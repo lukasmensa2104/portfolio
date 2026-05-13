@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukas Mensa - Portfolio BTS SIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080c12;
+            color: #e8eaf0;
+            line-height: 1.75;
+            font-size: 17px;
+        }
+
+        h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background-color: rgba(8,12,18,0.97);
+            padding: 18px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(74,144,226,0.15);
+            backdrop-filter: blur(10px);
+        }
+        .nav-logo { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:#5ba3f5; text-decoration:none; letter-spacing:-.02em; }
+        .nav-links { display:flex; list-style:none; gap:36px; }
+        .nav-links a { color:#9aa3b5; text-decoration:none; font-size:1rem; font-weight:500; transition:color .3s; letter-spacing:.01em; }
+        .nav-links a:hover { color:#5ba3f5; }
+
+        /* ── HERO ── */
+        #accueil {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: flex-start;
+            padding: 120px 100px 80px;
+            background: linear-gradient(135deg, #080c12 0%, #0c1829 60%, #08131f 100%);
+            position: relative; overflow: hidden;
+        }
+        #accueil::before {
+            content:''; position:absolute; top:-30%; right:-5%;
+            width:750px; height:750px;
+            background: radial-gradient(circle, rgba(74,144,226,.07) 0%, transparent 65%);
+            pointer-events:none;
+        }
+        #accueil::after {
+            content:''; position:absolute; bottom:-20%; left:10%;
+            width:400px; height:400px;
+            background: radial-gradient(circle, rgba(74,200,226,.04) 0%, transparent 70%);
+            pointer-events:none;
+        }
+        .hero-label {
+            font-size:.9rem; font-weight:600; letter-spacing:.2em;
+            text-transform:uppercase; color:#5ba3f5; margin-bottom:24px;
+            background:rgba(74,144,226,.08); padding:6px 14px; border-radius:4px;
+            border:1px solid rgba(74,144,226,.2); display:inline-block;
+        }
+        #accueil h1 {
+            font-size: clamp(2.8rem,5.5vw,4.2rem);
+            font-weight:800; line-height:1.15; margin-bottom:24px; max-width:800px;
+            letter-spacing:-.03em;
+        }
+        #accueil > p { font-size:1.15rem; color:#8899aa; max-width:640px; margin-bottom:44px; line-height:1.8; }
+        .hero-photo {
+            position:absolute; right:100px; top:50%; transform:translateY(-50%);
+            width:360px; height:360px; border-radius:50%; object-fit:cover;
+            border:3px solid rgba(74,144,226,.3);
+            box-shadow: 0 0 60px rgba(74,144,226,.12), 0 0 120px rgba(74,144,226,.05);
+        }
+        .hero-btns { display:flex; gap:16px; }
+        .btn-primary {
+            background:#4a90e2; color:white; padding:15px 34px;
+            border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem;
+            transition: background .3s, transform .2s, box-shadow .3s;
+            box-shadow: 0 4px 24px rgba(74,144,226,.3);
+        }
+        .btn-primary:hover { background:#357abd; transform:translateY(-2px); box-shadow:0 8px 32px rgba(74,144,226,.4); }
+        .btn-outline {
+            border:1px solid rgba(255,255,255,.15); color:#ccc; padding:15px 34px;
+            border-radius:8px; text-decoration:none; font-weight:600; font-size:1rem;
+            transition: border-color .3s, color .3s, background .3s;
+        }
+        .btn-outline:hover { border-color:#4a90e2; color:#5ba3f5; background:rgba(74,144,226,.06); }
+
+        /* ── SECTIONS ── */
+        section { padding: 100px 100px; }
+        .container { max-width:1200px; margin:0 auto; }
+        .section-number {
+            font-size:.82rem; font-weight:600; letter-spacing:.18em;
+            text-transform:uppercase; color:#5ba3f5; margin-bottom:12px;
+        }
+        section h2 { font-size:clamp(2rem,3.5vw,3rem); font-weight:800; margin-bottom:18px; letter-spacing:-.02em; }
+        .section-intro { color:#7a8899; max-width:740px; margin-bottom:60px; font-size:1.05rem; line-height:1.8; }
+        #parcours { background:#0a0e16; }
+        #projets  { background:#080c12; }
+        #veille   { background:#0a0e16; }
+
+        /* ── PARCOURS ── */
+        .parcours-subsection { margin-bottom:70px; padding-bottom:70px; border-bottom:1px solid rgba(255,255,255,.05); }
+        .parcours-subsection:last-child { border-bottom:none; }
+        .parcours-subsection h3 { font-size:1.7rem; font-weight:700; margin-bottom:18px; letter-spacing:-.02em; }
+        .parcours-subsection p { color:#8899aa; font-size:1rem; margin-bottom:16px; max-width:860px; }
+        .img-row { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; }
+        .img-row img { height:230px; border-radius:10px; object-fit:cover; border:1px solid rgba(255,255,255,.07); transition:transform .3s; }
+        .img-row img:hover { transform:scale(1.02); }
+        .img-caption { font-size:.82rem; color:#445566; margin-top:8px; font-style:italic; }
+
+        /* ── LISTES PROJET ── */
+        .project-lists { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:70px; }
+        .list-card { background:#0e1520; border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:32px; }
+        .list-card h4 {
+            font-size:.88rem; font-weight:700; letter-spacing:.1em;
+            text-transform:uppercase; color:#5ba3f5; margin-bottom:20px;
+        }
+        .list-card ul { list-style:none; }
+        .list-card li {
+            padding:9px 0; border-bottom:1px solid rgba(255,255,255,.04);
+            font-size:.95rem; color:#8899aa;
+            display:flex; align-items:flex-start; gap:10px;
+        }
+        .list-card li:last-child { border-bottom:none; }
+        .list-card li::before { content:'→'; color:#5ba3f5; flex-shrink:0; margin-top:2px; }
+
+        /* ── SECTIONS PROJET DÉTAIL ── */
+        .project-section { margin-bottom:70px; padding-bottom:70px; border-bottom:1px solid rgba(255,255,255,.05); }
+        .project-section:last-child { border-bottom:none; margin-bottom:0; }
+        .project-section h3 { font-size:1.7rem; font-weight:700; margin-bottom:18px; letter-spacing:-.02em; }
+        .project-section h4 { font-size:1.1rem; font-weight:600; margin:28px 0 12px; color:#d0d8e8; }
+        .project-section p { color:#8899aa; font-size:1rem; margin-bottom:16px; max-width:880px; line-height:1.8; }
+
+        /* ── PROJECT DESCRIPTION CARD ── */
+        .project-desc-card {
+            background:linear-gradient(135deg, #0e1a28 0%, #0a1520 100%);
+            border:1px solid rgba(74,144,226,.2);
+            border-left:3px solid #4a90e2;
+            border-radius:12px;
+            padding:24px 28px;
+            margin:20px 0 28px;
+            font-size:1rem;
+            color:#9aabb8;
+            line-height:1.8;
+        }
+        .project-desc-card strong { color:#d0e0f0; }
+
+        /* ── SISR MODULES ── */
+        .sisr-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+        .sisr-module {
+            background: #0e1824;
+            border: 1px solid #1a2d40;
+            border-radius: 12px;
+            padding: 22px;
+            transition: border-color .3s, transform .3s;
+        }
+        .sisr-module:hover { border-color: rgba(74,144,226,.4); transform:translateY(-2px); }
+        .sisr-module-title {
+            font-size:.95rem; font-weight:700; color:#fff;
+            margin-bottom:10px;
+            display:flex; align-items:center; gap:10px;
+            font-family:'Syne',sans-serif;
+        }
+        .dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+        .dot-rack    { background:#f0a500; }
+        .dot-proxmox { background:#e74c3c; }
+        .dot-ad      { background:#2ecc71; }
+        .dot-zabbix  { background:#4a90e2; }
+        .dot-print   { background:#a855f7; }
+        .dot-server  { background:#f97316; }
+        .dot-support { background:#06b6d4; }
+        .dot-audit   { background:#ec4899; }
+        .dot-share   { background:#10b981; }
+        .dot-intune  { background:#3b82f6; }
+        .sisr-module p { color:#667788; font-size:.9rem; line-height:1.65; margin:0; }
+        .sisr-module .tags { margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
+        .tag {
+            background:rgba(74,144,226,.1); color:#5ba3f5;
+            font-size:.75rem; font-weight:600;
+            padding:3px 10px; border-radius:5px; letter-spacing:.04em;
+        }
+
+        .sisr-baie-imgs { display:flex; flex-wrap:wrap; gap:14px; margin-top:8px; }
+        .sisr-baie-imgs .img-item { display:flex; flex-direction:column; gap:6px; }
+        .sisr-baie-imgs img {
+            height:230px; border-radius:10px; object-fit:cover;
+            border:1px solid #1e2d40;
+        }
+        .sisr-baie-imgs img.logo-bg {
+            object-fit: contain;
+            padding: 20px;
+            background: #fff;
+        }
+
+        /* ── COMPÉTENCES ── */
+        .skills-link {
+            display:inline-flex; align-items:center; gap:10px;
+            background:#0e1520; border:1px solid rgba(255,255,255,.1); color:#ccc;
+            padding:16px 28px; border-radius:10px; text-decoration:none;
+            font-size:.95rem; font-weight:500; margin-top:10px;
+            transition: border-color .3s, color .3s, background .3s;
+        }
+        .skills-link:hover { border-color:#4a90e2; color:#5ba3f5; background:rgba(74,144,226,.05); }
+
+        /* ── VEILLE ── */
+        .sources-grid {
+            display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+            gap:18px; margin-bottom:50px;
+        }
+        .source-card {
+            background:#0e1520; border:1px solid rgba(255,255,255,.07);
+            border-radius:12px; padding:22px; text-align:center;
+            transition:border-color .3s;
+        }
+        .source-card:hover { border-color:rgba(74,144,226,.3); }
+        .source-card .emoji { font-size:1.8rem; margin-bottom:10px; }
+        .source-card h4 { font-size:.92rem; font-weight:600; margin-bottom:6px; }
+        .source-card a { color:#5ba3f5; font-size:.82rem; text-decoration:none; }
+        .veille-article h3 { font-size:1.4rem; font-weight:700; margin-bottom:18px; }
+        .veille-article h4 { font-size:1rem; font-weight:600; color:#5ba3f5; margin:24px 0 10px; }
+        .veille-article p { color:#7a8899; font-size:.98rem; margin-bottom:14px; max-width:860px; }
+        .veille-article ul { list-style:none; margin:12px 0 16px; }
+        .veille-article ul li { color:#7a8899; font-size:.98rem; padding:4px 0; }
+        .veille-article ul li::before { content:'• '; color:#5ba3f5; }
+        .micode-banner img { max-width:100%; border-radius:10px; border:1px solid rgba(255,255,255,.07); margin-bottom:14px; }
+
+        /* content-block used in veille */
+        .content-block { margin-bottom:50px; }
+        .content-block h3 { font-size:1.6rem; font-weight:700; margin-bottom:18px; }
+        .content-block h4 { font-size:1rem; font-weight:600; color:#5ba3f5; margin:22px 0 10px; }
+        .content-block p { color:#7a8899; font-size:.98rem; margin-bottom:14px; max-width:860px; line-height:1.8; }
+        .content-block ul { list-style:none; margin:12px 0 16px; }
+        .content-block ul li { color:#7a8899; font-size:.98rem; padding:4px 0; }
+        .content-block ul li::before { content:'• '; color:#5ba3f5; }
+        .image-grid { display:flex; flex-wrap:wrap; gap:14px; margin:16px 0; }
+        .image-item img { max-height:260px; border-radius:10px; border:1px solid rgba(255,255,255,.07); }
+        .quote-block {
+            background:linear-gradient(135deg,rgba(74,144,226,.08),rgba(74,144,226,.03));
+            border-left:3px solid #4a90e2;
+            padding:24px 30px; border-radius:0 10px 10px 0;
+            color:#aabbcc; font-style:italic; font-size:1.05rem;
+            margin:30px 0; line-height:1.8;
+        }
+
+        /* ── FOOTER ── */
+        footer { background:#050810; border-top:1px solid rgba(255,255,255,.05); padding:60px 100px 36px; }
+        .footer-grid {
+            max-width:1200px; margin:0 auto;
+            display:grid; grid-template-columns:1.5fr 1fr 1fr;
+            gap:50px; margin-bottom:40px;
+        }
+        .footer-brand .brand-name { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:#5ba3f5; margin-bottom:10px; }
+        .footer-brand .brand-desc { color:#445566; font-size:.9rem; line-height:1.7; }
+        .footer-col h5 {
+            font-size:.78rem; font-weight:700; letter-spacing:.15em;
+            text-transform:uppercase; color:#445566; margin-bottom:14px;
+        }
+        .footer-col ul { list-style:none; }
+        .footer-col li { margin-bottom:8px; }
+        .footer-col a { color:#667788; font-size:.92rem; text-decoration:none; transition:color .2s; }
+        .footer-col a:hover { color:#5ba3f5; }
+        .footer-bottom {
+            max-width:1200px; margin:0 auto;
+            padding-top:20px; border-top:1px solid rgba(255,255,255,.04);
+            color:#2a3344; font-size:.85rem;
+        }
+
+        /* ── PRÉSENTATION SECTION ── */
+        .pres-section { background:#060a10; padding:80px 100px; }
+
+        @media (max-width:900px) {
+            #accueil { padding:130px 36px 70px; }
+            .hero-photo { display:none; }
+            section { padding:70px 36px; }
+            .pres-section { padding:60px 36px; }
+            .project-lists { grid-template-columns:1fr; }
+            .footer-grid { grid-template-columns:1fr; }
+            footer { padding:50px 36px 30px; }
+            .sisr-modules { grid-template-columns:1fr; }
+            nav { padding:16px 30px; }
+            .nav-links { gap:20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#accueil" class="nav-logo">Lukas Mensa</a>
+    <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#e6">Projets E6</a></li>
+        <li><a href="#veille">Veille</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="accueil">
+    <div class="hero-label">Portfolio Professionnel</div>
+    <h1>Bonjour, Bienvenue sur mon portfolio</h1>
+    <p>Un portfolio est un moyen de présenter mon parcours scolaire et professionnel, ainsi que les projets que j'ai menés en entreprise. C'est aussi un espace pour partager ma veille technologique. N'hésitez pas à explorer et à me contacter pour en savoir plus.</p>
+    <div class="hero-btns">
+        <a href="#parcours" class="btn-primary">Mon Parcours</a>
+        <a href="#projets" class="btn-outline">Mes Projets</a>
+    </div>
+    <img src="https://static.wixstatic.com/media/27cb0c_a68a068ede534e24ae9074f20891af02~mv2.jpg/v1/crop/x_0,y_744,w_2976,h_2976/fill/w_480,h_480,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1A8A4971_JPG.jpg" alt="Lukas Mensa" class="hero-photo" />
+</section>
+
+<!-- PRÉSENTATION -->
+<section class="pres-section">
+    <div class="container">
+        <div class="section-number">01 / PRÉSENTATION</div>
+        <h2>Pourquoi ce portfolio ?</h2>
+        <p class="section-intro">Dans le cadre de ma formation, j'ai réalisé plusieurs tâches à mettre en valeur. Ce portfolio étant une opportunité de valoriser mon parcours, scolaire et professionnel, mes projets menés, ainsi qu'une veille technologique que je mène.</p>
+        <p style="color:#7a8899;font-size:1rem;">Vous pourrez découvrir tout ceci en naviguant à travers les différentes sections afin de vous diriger vers les pages convenantes !</p>
+    </div>
+</section>
+
+<!-- PARCOURS -->
+<section id="parcours">
+    <div class="container">
+        <div class="section-number">02 / FORMATION</div>
+        <h2>Parcours scolaire et expériences professionnelles</h2>
+        <p class="section-intro">Étant passé par différentes étapes, je développe dans cette section mon parcours scolaire et professionnel. Bachelier, Employé en CDI, Reconversion, tout est recensé dans cette page où vous pourrez en apprendre plus sur moi et mes ambitions.</p>
+
+        <div class="parcours-subsection">
+            <h3>Baccalauréat</h3>
+            <p>Lycéen dans l'établissement de Jacques Arsène d'Arsonval à Brive-la-Gaillarde en Corrèze, je décroche mon premier diplôme majeur en 2022 qui est le baccalauréat général spécialité : AMC (Anglais Monde Contemporain), CAV (Cinéma Audio-Visuel) et option Italien.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_a355f6dd501540b8a249e47abddf25df~mv2.png/v1/fill/w_396,h_249,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_a355f6dd501540b8a249e47abddf25df~mv2.png" alt="Logo Lycée" />
+                <img src="https://static.wixstatic.com/media/27cb0c_0bfa5c6ff6c14849a109d09d25cb2503~mv2.jpeg/v1/fill/w_419,h_263,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/chantier-cite-scolaire-d-arsonval-travaux-lycee-college_3972966.jpeg" alt="Vue du lycée" />
+                <img src="https://static.wixstatic.com/media/27cb0c_1bedc5faa18644dab14f882d7fd148d3~mv2.png/v1/fill/w_393,h_269,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-14_141704904.png" alt="Lycée d'Arsonval" />
+            </div>
+            <p style="margin-top:22px;">D'abord intéressé par le milieu du Cinéma, je me spécialise dans l'audiovisuel avec la spécialité CAV, rare en France, qui me donne l'opportunité de construire mon diplôme autour de ceci. J'ai pu avoir accès à du matériel professionnel, ceci était une première rencontre avec du média informatique, bien avant d'en arriver où j'en suis aujourd'hui.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/11062b_979c6676ddf4470b947910899893c74e~mv2.jpg/v1/fill/w_422,h_372,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_979c6676ddf4470b947910899893c74e~mv2.jpg" alt="Matériel audiovisuel" />
+                <img src="https://static.wixstatic.com/media/0fc820b444c64c6da606fc2fa09830cc.jpg/v1/fill/w_422,h_372,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Film%20Reels.jpg" alt="Film Reels" />
+                <img src="https://static.wixstatic.com/media/7c7ed1f7f96a4740be0df4f223475588.jpg/v1/fill/w_409,h_275,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/7c7ed1f7f96a4740be0df4f223475588.jpg" alt="Équipement photo" />
+            </div>
+        </div>
+
+        <div class="parcours-subsection">
+            <h3>Emploi en CDI</h3>
+            <p>Le bac obtenu, je décide d'arrêter les études d'audiovisuel en raison d'un manque cruel de places dans les écoles supérieures me fermant toutes les portes. Je trouve alors un CDI en restauration rapide, m'offrant une première expérience et un premier contact avec le monde professionnel.</p>
+            <p>Cette période m'a enseigné la vie en entreprise et son fonctionnement, me faisant acquérir des compétences telles que la gestion des stocks, la rapidité d'exécution, ou encore, la coordination et l'adaptation d'un travail en équipe. Ayant passé près de 1 an à y travailler de Août 2023 à Juin 2024, cette opportunité m'a permis d'économiser de l'argent et de me payer des études vers un domaine qui m'a plu sur le tard, l'informatique.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_98b6ec872d5e44cdb2784a0df089338d~mv2.jpg/v1/fill/w_345,h_230,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_6193_1.jpg" alt="Restaurant" />
+                <img src="https://static.wixstatic.com/media/27cb0c_ade513fa593c4ed4b69e92cd4761b988~mv2.webp/v1/fill/w_230,h_155,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/kuala-lumpur-malaysia-november-22-600nw-2501185993.webp" alt="Restaurant extérieur" />
+                <img src="https://static.wixstatic.com/media/11062b_e3ab7525c569460caceef63962c99b26~mv2.jpg/v1/fill/w_311,h_218,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/restaurant%20int%C3%A9rieur.jpg" alt="Intérieur restaurant" />
+            </div>
+        </div>
+
+        <div class="parcours-subsection">
+            <h3>Reprise des études, rencontre avec l'Informatique</h3>
+            <p>Me voilà enfin arrivé dans le milieu des études supérieures, préparant un BTS SIO (Services Informatique aux Organisations). Je redéménage en Île-de-France pour suivre cette formation à l'école IPSSI de Marne-la-Vallée proposant 2 options de spécialités : SLAM (Solutions Logiciels et Applications Métiers) et SISR (Solutions d'Infrastructure Système et Réseaux).</p>
+            <p>Au premier semestre de cette première année, j'ai pu expérimenter les 2 spécialités de cette formation, m'offrant des connaissances dans les 2 domaines. Je décide, cependant de choisir l'option de spécialité SISR pour me spécialiser dans l'infrastructure réseaux. Ma formation comprend une brève mais complète introduction au domaine de la cybersécurité ce qui me permet d'ouvrir davantage mes horizons dans le domaine de l'informatique.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_e8ac33c13bb747ea98d781a28f9ff6d8~mv2.jpg/v1/fill/w_370,h_247,al_c,lg_1,q_80,enc_avif,quality_auto/IPSSI-logo-300.jpg" alt="IPSSI Logo" />
+                <img src="https://static.wixstatic.com/media/27cb0c_a84060b49fd147d7bde9ec5427ef56ed~mv2.jpg/v1/fill/w_393,h_262,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IPSSI-Lyon-3-scaled.jpg" alt="IPSSI Campus" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+    <div class="container">
+        <div class="section-number">03 / RÉALISATIONS</div>
+        <h2>Mes projets</h2>
+        <p class="section-intro">Découvrez les projets que j'ai réalisés et menés au cours de ma formation BTS SIO ainsi qu'en entreprise, lors de mon stage et de mon alternance.</p>
+        <p style="color:#7a8899;font-size:1rem;margin-bottom:50px;">Ces projets ont été réalisés au cours de ma formation BTS SIO ainsi qu'en entreprise, lors de mon stage et alternance. Ces domaines sont en progression et seront alimentés quotidiennement.</p>
+
+        <!-- Listes -->
+        <div class="project-lists">
+            <div class="list-card">
+                <h4>Projets Scolaires :</h4>
+                <ul>
+                    <li>Réalisation d'une bibliothèque en ligne (SLAM)</li>
+                    <li>Initiation aux langages de codage (PHP, HTML, SQL, ...) (SLAM)</li>
+                    <li>Réalisation d'un patrimoine réseau pour une entreprise fictive (SISR)</li>
+                    <li>Création de schémas réseaux sur Cisco Packet Tracer (SISR)</li>
+                    <li>Création de machines virtuelles sur VMware (SISR)</li>
+                    <li>Étude des domaines (SISR)</li>
+                    <li>Projet de groupe sur une infrastructure d'une baie (SISR)</li>
+                </ul>
+            </div>
+            <div class="list-card">
+                <h4>Projets en Entreprise :</h4>
+                <ul>
+                    <li>Masterisation d'ordinateurs pour les mettre au format de l'entreprise</li>
+                    <li>Installation de station d'accueil Dell pour les collaborateurs</li>
+                    <li>Support IT et test de matériels informatiques</li>
+                    <li>Brassage et débrassage de prises RJ45</li>
+                    <li>Démontage d'ordinateurs et remplacement de composants</li>
+                    <li>Gestion des imprimantes numériques d'une organisation</li>
+                    <li>Développement et gestion de serveurs (Jotelulu)</li>
+                    <li>Gestion du service SharePoint d'un organisme</li>
+                    <li>Réalisation d'audits (sécurité, évolutivité…)</li>
+                    <li>Utilisation d'Intune pour une gestion automatisée</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLAM -->
+        <div class="project-section">
+            <h3>Projets Scolaires — partie SLAM</h3>
+            <p>Lors de ma formation j'ai été amené à réaliser plusieurs projets dans la matière SLAM. N'étant pas ma spécialité de prédilection, ces derniers m'ont permis d'accroître mes compétences et de fructifier mes connaissances en informatique.</p>
+            <p>Ainsi j'ai pu réaliser en binôme une bibliothèque codée en HTML et CSS sur le thème de la saga Star Wars, répertoriant 10 livres et toutes leurs informations. Cette expérience m'a permis de me familiariser avec les différents langages et procédures de programmation et codage.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/11062b_23322e849f0b4b57ba009b9e55878791~mv2.jpg/v1/fill/w_376,h_250,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_23322e849f0b4b57ba009b9e55878791~mv2.jpg" alt="Code" />
+                <img src="https://static.wixstatic.com/media/704318ee9be94acabf28919a734951b8.jpg/v1/fill/w_440,h_293,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Console%20de%20programmation.jpg" alt="Console de programmation" />
+            </div>
+            <div class="img-row" style="margin-top:14px;">
+                <img src="https://static.wixstatic.com/media/11062b_3bc0a742dcc54a698a440056823c715f~mv2.jpg/v1/fill/w_971,h_399,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_3bc0a742dcc54a698a440056823c715f~mv2.jpg" alt="Bibliothèque Star Wars" style="height:130px;" />
+            </div>
+            <p class="img-caption">Projet bibliothèque Star Wars</p>
+            <div class="img-row" style="margin-top:14px;">
+                <img src="https://static.wixstatic.com/media/27cb0c_13f7a905a28c4f8cb3810b31d00d782f~mv2.jpg/v1/fill/w_312,h_178,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/HTML-CSS.jpg" alt="HTML CSS" />
+                <img src="https://static.wixstatic.com/media/27cb0c_a3c488f87342450ab2bebe8e7968b033~mv2.jpg/v1/fill/w_282,h_130,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/php-sql.jpg" alt="PHP SQL" />
+                <img src="https://static.wixstatic.com/media/27cb0c_75c5e27d38f843128d1e0e693ee1fa0f~mv2.png/v1/fill/w_312,h_178,al_c,q_85,enc_avif,quality_auto/image0.png" alt="Projet code" />
+            </div>
+            <p style="margin-top:18px;">J'ai pu également expérimenter le SQL, qui est un langage de base de données, à travers différents exercices de formations. La matière SLAM m'a enseigné les fondements de l'informatique et son évolution, afin de comprendre comment nous sommes arrivés à ce niveau de technologie.</p>
+        </div>
+
+        <!-- SISR -->
+        <div class="project-section">
+            <h3>Projets Scolaires — partie SISR</h3>
+            <p>En plus de la matière SLAM, j'ai été confronté à une autre matière qui devient ma spécialité primaire, la matière SISR (Solution d'Infrastructure, Système et Réseaux). Les projets de cette matière ont été plus remplis et plus précis que celle de la matière SLAM.</p>
+            <p>Dans le cadre de notre formation BTS SIO option SISR, nous avons mené en groupe un projet complet : déployer et administrer une infrastructure informatique sur une baie physique réelle. Ce projet nous a permis de mettre en pratique l'ensemble des compétences acquises durant la formation — installation matérielle, virtualisation, administration système et supervision réseau.</p>
+
+            <div class="sisr-modules">
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-rack"></span>Architecture sur baie réelle</div>
+                    <p>Mise en place d'une baie informatique physique avec 2 serveurs dédiés et des switchs managés. Câblage structuré, organisation des équipements en rack et gestion des connexions réseau entre les machines.</p>
+                    <div class="tags"><span class="tag">Baie</span><span class="tag">Serveurs</span><span class="tag">Switch</span><span class="tag">RJ45</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-proxmox"></span>Proxmox VE</div>
+                    <p>Installation et configuration de Proxmox Virtual Environment sur les serveurs physiques. Création et gestion de machines virtuelles (VM) et de conteneurs LXC depuis l'interface web de l'hyperviseur.</p>
+                    <div class="tags"><span class="tag">Proxmox</span><span class="tag">Hyperviseur</span><span class="tag">VM</span><span class="tag">LXC</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-ad"></span>Active Directory · WS 2022</div>
+                    <p>Déploiement d'un Active Directory sous Windows Server 2022 en machine virtuelle Proxmox. Configuration du contrôleur de domaine, création d'utilisateurs et de groupes, mise en place de GPO et jonction des machines au domaine.</p>
+                    <div class="tags"><span class="tag">AD DS</span><span class="tag">GPO</span><span class="tag">DNS</span><span class="tag">DHCP</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-zabbix"></span>Supervision réseau · Zabbix</div>
+                    <p>Mise en place d'une solution de supervision avec Zabbix, déployée en VM Proxmox. Monitoring des hôtes, des services réseau et des ressources système. Configuration d'alertes et de tableaux de bord.</p>
+                    <div class="tags"><span class="tag">Zabbix</span><span class="tag">Monitoring</span><span class="tag">SNMP</span><span class="tag">Alertes</span></div>
+                </div>
+            </div>
+
+            <div class="sisr-baie-imgs" style="margin-bottom:32px;">
+                <div class="img-item">
+                    <img class="logo-bg" src="https://www.zabbix.com/img/logo/zabbix_logo_500x131.png" alt="Zabbix — supervision réseau" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Zabbix_logo.svg/500px-Zabbix_logo.svg.png';" />
+                    <span class="img-caption">Zabbix — outil de supervision</span>
+                </div>
+            </div>
+
+            <p>J'ai pu réaliser des schémas de réseaux sur le logiciel Cisco Packet Tracer, un logiciel très efficace pour virtualiser et imiter du réseautage sans prendre le risque de mal configurer de vrais appareils. Nous avons pu, en classe, réaliser différentes topologies de réseaux (en étoile, en bus, en anneaux, ...) afin de comprendre les multiples façons de créer du réseau dans une organisation professionnelle ou non professionnelle.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_1f1e719d4ddc415bb1f0e2cd9cec4f4a~mv2.jpg/v1/fill/w_654,h_361,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/hq720.jpg" alt="Topologie en étoile sur Packet Tracer" />
+            </div>
+            <p class="img-caption">Topologie en étoile sur Packet Tracer</p>
+            <p style="margin-top:20px;">La principale idée du réseau est de faire communiquer des machines entre elles, s'échangeant des informations, des données ou tout type d'objets informatiques. Ainsi, j'ai pu étudier le protocole DHCP, protocole qui permet d'attribuer un bail d'une adresse IP pendant une certaine durée lors de sa connexion. L'étude du domaine, ce dernier étant un système reliant plusieurs machines dans un même regroupement. Ou encore le DNS (Domain Name Server) étant un serveur capable de traduire le langage de l'IP en nom lisible.</p>
+
+            <h4>Projet d'entreprise fictive GSB</h4>
+            <p>J'ai aussi été amené à travailler en groupe pour renouveler l'architecture informatique d'une entreprise fictive. Nous avons effectué la recherche d'équipement matériel adéquat pour les employés comme les ordinateurs, les solutions logiciels (anti-virus, vpn), ou encore des éléments plus techniques telles que la plage d'adressage IP et les équipements réseaux.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_d9ac2bc350c441efaa920a608c7d2f63~mv2.png/v1/fill/w_355,h_208,al_c,lg_1,q_85,enc_avif,quality_auto/image_2025-06-21_003055420.png" alt="Schéma GSB" />
+                <img src="https://static.wixstatic.com/media/27cb0c_145cf56881cc487da2571af2d4fb7b27~mv2.png/v1/fill/w_600,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-21_003247914.png" alt="Architecture réseau GSB" />
+            </div>
+            <div class="img-row" style="margin-top:14px;">
+                <img src="https://static.wixstatic.com/media/27cb0c_98fa0da7c04443bcbd56b205245b6e7d~mv2.png/v1/fill/w_600,h_281,al_c,q_85,enc_avif,quality_auto/image_2025-06-22_122611600.png" alt="Machines virtuelles" />
+            </div>
+            <p class="img-caption">Travail sur machines virtuelles</p>
+            <p style="margin-top:18px;">Travailler sur des machines virtuelles a aussi fait partie de ma formation, me faisant découvrir, par des exemples et de la pratique concrète, comment fonctionnent les serveurs et les domaines. J'ai pu simuler du Windows Server et connecter les machines entre elles avec des IP fixes.</p>
+        </div>
+
+        <!-- Stage -->
+        <div class="project-section">
+            <h3>Projets en entreprise — Stage</h3>
+            <h4>Stage - Seine-Saint-Denis Habitat</h4>
+            <p>Lors de mes passages en entreprise, notamment durant mon stage, j'ai été amené à réaliser plusieurs projets. J'ai effectué mon stage auprès de Seine-Saint-Denis Habitat dans la commune de Bobigny. Cette entreprise est le premier bailleur social du département gérant environ 32 000 logements sur une trentaine de communes réparties dans toute la Seine-Saint-Denis.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_42bead38d15f4d7d9864781d62e3f42d~mv2.png/v1/fill/w_505,h_276,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-25_233624539.png" alt="Seine-Saint-Denis Habitat" />
+                <img src="https://static.wixstatic.com/media/27cb0c_3371abb74dfa4a47a86c5064d3a6680b~mv2.jpg/v1/fill/w_361,h_149,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1255.jpg" alt="Travail stage 1" />
+                <img src="https://static.wixstatic.com/media/27cb0c_6e9691c5f5cf4fb091d9ba4c80cc13f7~mv2.jpg/v1/fill/w_361,h_158,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1256.jpg" alt="Travail stage 2" />
+            </div>
+
+            <h4>Missions réalisées :</h4>
+            <p><strong style="color:#d0d8e8;">Masterisation d'ordinateurs :</strong><br>
+            L'une de mes premières missions a été de masteriser des ordinateurs. Le rôle de la masterisation est de rendre tous les ordinateurs similaires avec les mêmes fichiers, dossiers ou logiciels. L'objectif principal est que chaque utilisateur se retrouve avec la même configuration d'ordinateur pour pouvoir travailler. Ainsi, j'ai réalisé plus d'une cinquantaine de masterisations.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_818eb5fd794c4abaaf4402a9c850c4cb~mv2.jpg/v1/fill/w_384,h_200,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/image6.jpg" alt="Masterisation" />
+                <img src="https://static.wixstatic.com/media/27cb0c_b8856ccd8a2b46dcb3ae7b479717c2db~mv2.jpg/v1/fill/w_384,h_296,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1281.jpg" alt="Ordinateurs masterisés" />
+            </div>
+
+            <p style="margin-top:22px;"><strong style="color:#d0d8e8;">Installation de postes et stations d'accueil :</strong><br>
+            Une fois les masterisations effectuées, j'ai pu participer à l'installation de postes et de stations d'accueil. Les stations d'accueil sont de petits boîtiers très utiles qui servent à brancher tout type de câbles, facilitant la mobilité et réduisant l'espace encombrant d'une tour.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_6611d72f6b434b18bf2dc2a607e541ce~mv2.jpg/v1/fill/w_442,h_331,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1260.jpg" alt="Installation poste" />
+                <img src="https://static.wixstatic.com/media/27cb0c_59404ad9f59547ac8ebc27c005a66853~mv2.jpg/v1/fill/w_442,h_331,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1261.jpg" alt="Station d'accueil" />
+            </div>
+
+            <p style="margin-top:22px;"><strong style="color:#d0d8e8;">Support IT et tests :</strong><br>
+            Le métier comprend également du support IT et du test de matériel informatique. J'ai eu à contacter des collaborateurs afin de résoudre leurs problèmes via la gestion de tickets informatiques. Il m'a aussi été confié d'effectuer des tests de fonctionnalités des machines, en vérifiant la partie hardware ainsi que des éléments de la partie software.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_4dc22e08b02e4c0b81a57188280adbe3~mv2.png/v1/fill/w_330,h_309,al_c,q_85,enc_avif,quality_auto/image_2025-06-23_220742543.png" alt="HWinfo" />
+                <img src="https://static.wixstatic.com/media/27cb0c_d0697a36a2d341cb85b5fa0a71c1e265~mv2.png/v1/fill/w_459,h_309,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/image_2025-06-23_221136402.png" alt="Tests hardware" />
+            </div>
+
+            <p style="margin-top:22px;"><strong style="color:#d0d8e8;">Transferts de données et démontage :</strong><br>
+            Nous avons réalisé des transferts de données entre ordinateurs. Il m'arrivait aussi d'avoir à démonter les ordinateurs pour remplacer des composants tels que les cartes NVMe. Je fus accompagné pour réaliser ces tâches jusqu'à les faire en total autonomie par la suite.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_86fae993a9e14192a150b40dd8e5a6c8~mv2.png/v1/fill/w_600,h_453,al_c,q_85,enc_avif,quality_auto/image_2025-06-23_221427273.png" alt="Transfert de données" />
+            </div>
+
+            <p style="margin-top:22px;"><strong style="color:#d0d8e8;">Brassage réseau :</strong><br>
+            Avec un autre stagiaire, nous avons effectué un travail d'équipe concernant la baie de brassage. Nous avons dû effectuer des contrôles concernant les branchements RJ45 et vérifier si ces derniers étaient bien actifs, non inversés ou branchés inutilement. Cette expérience était ma première mission en lien direct avec le réseau de l'entreprise.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_bf0351824c874dfda580286a931d9813~mv2.jpg/v1/fill/w_323,h_256,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_bf0351824c874dfda580286a931d9813~mv2.jpg" alt="Baie de brassage" />
+                <img src="https://static.wixstatic.com/media/27cb0c_38ec30c3077346b8a7d849e22080d4cf~mv2.jpg/v1/fill/w_397,h_529,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_1282.jpg" alt="Travail brassage" />
+                <img src="https://static.wixstatic.com/media/27cb0c_cccf5592e0984500b8d11193154c1055~mv2.jpg/v1/fill/w_330,h_363,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_cccf5592e0984500b8d11193154c1055~mv2.jpg" alt="Câblage réseau" />
+            </div>
+        </div>
+
+        <!-- Alternance -->
+        <div class="project-section">
+            <h3>Projets en entreprise — Alternance</h3>
+            <h4>Alternance - 3it-consulting</h4>
+            <p>Depuis le 12 Novembre 2025, je suis sous contrat d'alternance avec l'entreprise : 3it-consulting. Cette entreprise, située à Chauconin-Neufmontiers en Seine-et-Marne, n'est gérée que par une seule personne en freelance et existe depuis 2022. Mon supérieur, M. Barlier, m'a accordé sa confiance et son expertise pour me former et m'enseigner les bases du métier de Technicien Système Réseau.</p>
+            <div class="img-row">
+                <img src="https://static.wixstatic.com/media/27cb0c_0f924e401c3c451dbb69dc1b2a9df0cb~mv2.png/v1/fill/w_421,h_319,al_c,q_85,enc_avif,quality_auto/image_2025-11-28_130426401.png" alt="3it-consulting" />
+            </div>
+
+            <h4>Projets réalisés chez 3it-consulting :</h4>
+
+            <!-- === NOUVEAU : Gestion des imprimantes === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Gestion des imprimantes numériques d'une organisation :</strong></p>
+                <div class="project-desc-card">
+                    Ce projet consiste à administrer et maintenir le parc d'imprimantes numériques des clients de l'entreprise. Cela comprend l'installation des pilotes, la configuration des imprimantes sur le réseau, la gestion des droits d'accès par utilisateur, ainsi que la résolution des incidents techniques remontés. L'objectif est d'assurer un fonctionnement optimal des équipements d'impression au sein de l'organisation cliente, en veillant à la disponibilité du service et à la bonne communication entre les postes de travail et les périphériques d'impression.
+                </div>
+                <div class="img-row">
+                    <img src="https://lukasmensa2104.github.io/portfolio5/printer.jpg" alt="Imprimante HP professionnelle multifonction" style="height:260px;object-fit:cover;border-radius:10px;" onerror="this.src='/mnt/user-data/uploads/1778437250085_image.png'" />
+                </div>
+            </div>
+
+            <!-- === NOUVEAU : Développement de serveurs === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Développement de serveurs pour les différentes organisations :</strong></p>
+                <div class="project-desc-card">
+                    Cette mission consiste à déployer, configurer et maintenir des serveurs Windows pour les différents clients de 3it-consulting, via la plateforme <strong>Jotelulu</strong>. Chaque organisation dispose de son propre environnement serveur adapté à ses besoins : gestion des utilisateurs, partage de fichiers, hébergement d'applications métier ou encore accès distant sécurisé. Il s'agit également d'assurer la mise à jour régulière des systèmes, la sauvegarde des données et la supervision de l'état des serveurs pour garantir leur disponibilité.
+                </div>
+                <div class="img-row">
+                    <img src="https://static.wixstatic.com/media/27cb0c_c681ab63b4b34ef0b9f3912fc064cd3e~mv2.png/v1/fill/w_600,h_300,al_c,q_85,enc_avif,quality_auto/27cb0c_c681ab63b4b34ef0b9f3912fc064cd3e~mv2.png" alt="Jotelulu interface" />
+                    <img src="https://static.wixstatic.com/media/27cb0c_dec04794020e4782a36bb6e04deb0c8e~mv2.png/v1/fill/w_458,h_302,al_c,q_85,enc_avif,quality_auto/27cb0c_dec04794020e4782a36bb6e04deb0c8e~mv2.png" alt="Jotelulu dashboard" />
+                    <img src="https://static.wixstatic.com/media/27cb0c_3bf28ec9ae0a47a294bcb1ed25949d05~mv2.png/v1/fill/w_469,h_195,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_3bf28ec9ae0a47a294bcb1ed25949d05~mv2.png" alt="Jotelulu serveurs" />
+                </div>
+                <p class="img-caption">Gestion des serveurs Windows via Jotelulu</p>
+            </div>
+
+            <!-- === NOUVEAU : Assistance utilisateurs === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Assistance pour les utilisateurs et réponse à leurs demandes :</strong></p>
+                <div class="project-desc-card">
+                    Le support utilisateur est une composante centrale du rôle de technicien. Cette mission consiste à réceptionner, analyser et résoudre les problèmes techniques rencontrés par les collaborateurs des organisations clientes. Qu'il s'agisse d'un problème de connexion, d'un logiciel défaillant, d'un accès refusé ou d'un équipement en panne, l'objectif est d'apporter une réponse rapide et efficace. Cela passe par de la prise en main à distance, des déplacements sur site et une communication claire avec les utilisateurs non-techniques.
+                </div>
+                <div class="img-row">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&h=260&fit=crop" alt="Support IT utilisateur" onerror="this.style.display='none'" />
+                </div>
+            </div>
+
+            <!-- === NOUVEAU : Audit === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Réalisation d'audit (sécurité, évolutivité, ...) :</strong></p>
+                <div class="project-desc-card">
+                    L'audit informatique consiste à analyser l'infrastructure existante d'un client afin d'identifier les failles de sécurité, les points de défaillance potentiels et les opportunités d'amélioration. Cela comprend l'inventaire du parc matériel et logiciel, l'évaluation des politiques de sécurité (mots de passe, droits d'accès, sauvegardes), la vérification de la conformité et la production d'un rapport de recommandations. L'audit d'évolutivité permet également d'anticiper la croissance de l'organisation et de proposer une architecture capable de s'y adapter.
+                </div>
+                <div class="img-row">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=260&fit=crop" alt="Audit sécurité informatique" onerror="this.style.display='none'" />
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&h=260&fit=crop" alt="Analyse réseau" onerror="this.style.display='none'" />
+                </div>
+            </div>
+
+            <!-- === Microsoft 365 / SharePoint === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Microsoft 365 — Gestion du service SharePoint d'un organisme :</strong></p>
+                <div class="project-desc-card">
+                    La gestion SharePoint consiste à mettre en place et administrer un espace documentaire collaboratif pour les clients de l'entreprise. Concrètement, cela implique la création et l'organisation de bibliothèques de documents, la définition des droits d'accès par équipe ou par rôle, et la mise en place de workflows d'automatisation via <strong>Power Automate</strong> pour le traitement et le routage automatique des documents scannés. SharePoint devient ainsi un outil central de gestion de l'information au sein de l'organisation cliente.
+                </div>
+                <div class="img-row">
+                    <img src="https://static.wixstatic.com/media/27cb0c_8d0f929144ac462b988af44f65d7a450~mv2.png/v1/fill/w_365,h_357,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_8d0f929144ac462b988af44f65d7a450~mv2.png" alt="SharePoint" />
+                    <img src="https://static.wixstatic.com/media/27cb0c_10f53795815c49428e187e1cccde8a61~mv2.png/v1/fill/w_365,h_357,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/27cb0c_10f53795815c49428e187e1cccde8a61~mv2.png" alt="PowerAutomate" />
+                </div>
+                <p class="img-caption">SharePoint &nbsp;·&nbsp; PowerAutomate</p>
+            </div>
+
+            <!-- === NOUVEAU : Intune === -->
+            <div style="margin-top:28px;">
+                <p><strong style="color:#d0d8e8;">Utilisation d'Intune pour une gestion automatisée :</strong></p>
+                <div class="project-desc-card">
+                    <strong>Microsoft Intune</strong> est une solution de gestion des appareils mobiles et des postes de travail (MDM/MAM) intégrée à l'écosystème Microsoft 365. Dans le cadre de l'alternance, son utilisation permet de déployer automatiquement des configurations, des politiques de sécurité et des applications sur l'ensemble des équipements des organisations clientes, sans intervention physique poste par poste. Cela garantit une homogénéité des configurations, un niveau de sécurité contrôlé et une gestion centralisée du parc informatique, même à distance.
+                </div>
+                <div class="img-row">
+                    <img src="https://lukasmensa2104.github.io/portfolio5/intune-logo.png" alt="Microsoft Intune logo officiel" style="height:120px;object-fit:contain;background:#000;padding:20px 30px;border-radius:10px;border:1px solid rgba(255,255,255,.1);" />
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- PROJETS E6 -->
+<section id="e6" style="background:#0a0e16; padding:100px 100px;">
+    <div class="container">
+        <div class="section-number">04 / ÉPREUVE E6</div>
+        <h2>Projets E6 — BTS SIO SISR</h2>
+        <p class="section-intro">Dans le cadre de l'épreuve E6 du BTS SIO option SISR, j'ai réalisé deux projets techniques complets portant sur l'administration des systèmes et des réseaux. Ces projets ont été menés de manière autonome sur la période 2025–2026, en environnement virtualisé sur Proxmox, pour le compte d'une organisation fictive : la <strong style="color:#d0e0f0;">Maison des Ligues de la Lorraine (M2L)</strong>, établissement du Conseil Régional de Lorraine gérant les ligues sportives de la région.</p>
+
+        <!-- ── PROJET E6 N°1 : Active Directory ── -->
+        <div class="project-section">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+                <span style="background:rgba(74,144,226,.15);border:1px solid rgba(74,144,226,.3);color:#5ba3f5;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;padding:5px 14px;border-radius:6px;letter-spacing:.08em;">RÉALISATION N°1</span>
+            </div>
+            <h3>Mise en place d'une infrastructure Active Directory sécurisée</h3>
+            <p style="color:#5ba3f5;font-size:.95rem;margin-bottom:20px;">Gestion centralisée des utilisateurs et des ressources — M2L · Septembre 2025 – Avril 2026</p>
+
+            <div class="project-desc-card">
+                La M2L souhaitait mettre en place un <strong>Active Directory</strong> afin de gérer plus efficacement l'ensemble de ses machines, en répertoriant leurs noms et emplacements au sein de l'organisme. L'objectif était de déployer un service AD complet sur Windows Server, intégré à un environnement virtualisé Proxmox, permettant une gestion centralisée et sécurisée des utilisateurs, des groupes et des politiques de sécurité.
+            </div>
+
+            <h4>Contexte et environnement technique</h4>
+            <p>L'infrastructure repose sur un <strong style="color:#d0e0f0;">serveur Proxmox</strong> hébergeant plusieurs machines virtuelles : un Windows Server faisant office de contrôleur de domaine, et deux clients Windows intégrés au domaine. Le domaine racine retenu est <strong style="color:#d0e0f0;">m2l.net</strong>, avec une séparation réseau en VLAN (VLAN 210 pour le serveur, VLAN 250 pour les utilisateurs).</p>
+
+            <div class="sisr-modules" style="margin:28px 0;">
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-proxmox"></span>Virtualisation Proxmox</div>
+                    <p>Création de 3 VM : 1 Windows Server (contrôleur de domaine) et 2 Windows Client. Configuration des noms de machines et du nom de domaine sur chaque VM.</p>
+                    <div class="tags"><span class="tag">Proxmox VE</span><span class="tag">VM</span><span class="tag">Windows Server</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-ad"></span>Active Directory & DNS</div>
+                    <p>Installation du rôle AD DS et DNS via le Gestionnaire de serveur. Promotion en contrôleur de domaine, ajout d'une nouvelle forêt, configuration des zones de recherche directe et inversée, ajout des redirecteurs DNS (8.8.8.8).</p>
+                    <div class="tags"><span class="tag">AD DS</span><span class="tag">DNS</span><span class="tag">PTR</span><span class="tag">Forêt</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-zabbix"></span>DHCP</div>
+                    <p>Installation du rôle DHCP, création des groupes Admins DHCP et Users DHCP, définition de la plage d'adresses IP, durée de bail et passerelle réseau. Paramétrage de la carte réseau du serveur pour pointer vers son propre DNS.</p>
+                    <div class="tags"><span class="tag">DHCP</span><span class="tag">Étendue IPv4</span><span class="tag">Bail IP</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-support"></span>Jonction des clients</div>
+                    <p>Configuration des cartes réseau des deux clients Windows pour pointer vers le DNS du serveur. Jonction au domaine m2l.net avec authentification (identifiant et mot de passe administrateur).</p>
+                    <div class="tags"><span class="tag">Jonction domaine</span><span class="tag">Authentification</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-share"></span>Unités Organisationnelles</div>
+                    <p>Création de 3 OU : Direction, Comptabilité, Informatique. Création des groupes de sécurité associés et intégration des utilisateurs dans les groupes correspondants.</p>
+                    <div class="tags"><span class="tag">OU</span><span class="tag">Groupes</span><span class="tag">Utilisateurs</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-audit"></span>GPO — Sécurité</div>
+                    <p>Mise en place de 3 stratégies de groupe : politique de mot de passe renforcée, restriction d'accès au panneau de configuration, et montage automatique de lecteur réseau à l'ouverture de session.</p>
+                    <div class="tags"><span class="tag">GPO</span><span class="tag">Politique MDP</span><span class="tag">Lecteur réseau</span></div>
+                </div>
+            </div>
+
+            <h4>Schéma de l'infrastructure</h4>
+            <p>Le schéma ci-dessous illustre l'architecture complète déployée : flux Internet → Firewall → Switch L3 → Proxmox, avec le Windows Server/AD au centre du domaine m2l.net et les trois Unités Organisationnelles (OU) reliées aux postes clients.</p>
+            <div class="img-row" style="justify-content:center;">
+                <img src="https://lukasmensa2104.github.io/portfolio5/schema_ad.png"
+                     alt="Schéma infrastructure Active Directory M2L"
+                     style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
+                     onerror="this.style.background='#0e1520';this.style.padding='40px';this.alt='Schéma : Internet → Firewall → Switch L3 → Proxmox → Windows Server/AD (domaine m2l.net) avec OU Direction, Comptabilité, Informatique — VLAN 210 serveur / VLAN 250 utilisateurs';" />
+            </div>
+            <p class="img-caption" style="text-align:center;margin-top:10px;">Architecture Active Directory — domaine m2l.net · Proxmox · VLAN 210/250</p>
+
+            <h4>Compétences mobilisées</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Concevoir une solution d'infrastructure réseau</span>
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Installer, tester et déployer</span>
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Exploiter, dépanner et superviser</span>
+            </div>
+        </div>
+
+        <!-- ── PROJET E6 N°2 : Zabbix ── -->
+        <div class="project-section">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+                <span style="background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.3);color:#ec4899;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;padding:5px 14px;border-radius:6px;letter-spacing:.08em;">RÉALISATION N°2</span>
+            </div>
+            <h3>Mise en place d'une solution de supervision réseau avec Zabbix</h3>
+            <p style="color:#5ba3f5;font-size:.95rem;margin-bottom:20px;">Assurer la disponibilité du système d'information — M2L · Septembre 2025 – Avril 2026</p>
+
+            <div class="project-desc-card">
+                Pour anticiper les pannes et incidents sur son parc informatique, la M2L souhaitait déployer une <strong>solution de supervision</strong> capable de surveiller en temps réel l'état de ses équipements. Le choix s'est porté sur <strong>Zabbix</strong>, un outil open source de monitoring professionnel, déployé sur un serveur Linux (Ubuntu/Debian) en machine virtuelle Proxmox, supervisant à la fois des hôtes Windows et Linux.
+            </div>
+
+            <h4>Environnement technique</h4>
+            <p>L'infrastructure s'appuie sur le même environnement Proxmox que le projet AD, avec l'ajout d'un serveur <strong style="color:#d0e0f0;">Debian/Ubuntu Server</strong> dédié à Zabbix. Ce serveur est accessible via une interface web (https://ip.com) et supervise l'ensemble des VM du domaine m2l.net — serveur Windows, clients, et services réseau.</p>
+
+            <div class="sisr-modules" style="margin:28px 0;">
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-rack"></span>Installation de l'environnement</div>
+                    <p>Déploiement des VM sur Proxmox : serveur Debian pour Zabbix, Windows Server avec AD, et clients. Installation et configuration d'Ubuntu/Debian Server en ligne de commande.</p>
+                    <div class="tags"><span class="tag">Proxmox</span><span class="tag">Debian</span><span class="tag">Ubuntu Server</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-zabbix"></span>Déploiement Zabbix</div>
+                    <p>Installation du serveur Zabbix sur Linux, configuration de la base de données, accès à l'interface web d'administration. Installation des agents Zabbix sur les hôtes Windows et Linux pour la remontée des métriques.</p>
+                    <div class="tags"><span class="tag">Zabbix Server</span><span class="tag">Agent Zabbix</span><span class="tag">Interface web</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-server"></span>Hosts & Templates</div>
+                    <p>Création des hôtes supervisés et application de templates de monitoring pour surveiller : CPU, RAM, disque, et services réseau (ping, HTTP, SMB). Chaque hôte dispose de métriques adaptées à son rôle.</p>
+                    <div class="tags"><span class="tag">Hosts</span><span class="tag">Templates</span><span class="tag">CPU / RAM</span><span class="tag">SMB</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-audit"></span>Triggers & Alertes</div>
+                    <p>Configuration de déclencheurs automatiques : par exemple, si le CPU dépasse 80% pendant 5 minutes, une alerte est envoyée par mail. Les seuils sont paramétrables selon les besoins de chaque service.</p>
+                    <div class="tags"><span class="tag">Triggers</span><span class="tag">Alertes mail</span><span class="tag">Seuils</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-share"></span>Dashboard personnalisé</div>
+                    <p>Création d'un tableau de bord sur mesure dans l'interface Zabbix : visualisation en temps réel de l'état des équipements, historique des incidents, et graphiques de performance pour chaque hôte.</p>
+                    <div class="tags"><span class="tag">Dashboard</span><span class="tag">Temps réel</span><span class="tag">Graphiques</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-intune"></span>Supervision multi-OS</div>
+                    <p>Le projet couvre à la fois des environnements Windows (serveur AD, clients) et Linux (Ubuntu Server), démontrant la capacité de Zabbix à superviser des infrastructures hétérogènes depuis une seule interface centralisée.</p>
+                    <div class="tags"><span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">Multi-OS</span></div>
+                </div>
+            </div>
+
+            <h4>Schéma de l'infrastructure</h4>
+            <p>Le schéma ci-dessous illustre l'architecture complète : le serveur Debian/Zabbix est intégré au même environnement Proxmox que l'AD. Il supervise l'ensemble des VM via les agents et expose son interface web pour la consultation des métriques.</p>
+            <div class="img-row" style="justify-content:center;">
+                <img src="https://lukasmensa2104.github.io/portfolio5/schema_zabbix.png"
+                     alt="Schéma infrastructure supervision Zabbix M2L"
+                     style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
+                     onerror="this.style.background='#0e1520';this.style.padding='40px';this.alt='Schéma : Internet → Firewall → Switch L3 → Proxmox → Serveur Debian/Zabbix + Windows Server/AD (domaine m2l.net) avec accès web Zabbix';" />
+            </div>
+            <p class="img-caption" style="text-align:center;margin-top:10px;">Architecture supervision Zabbix — domaine m2l.net · Proxmox · Debian Server</p>
+
+            <h4>Compétences mobilisées</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Concevoir une solution d'infrastructure réseau</span>
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Installer, tester et déployer</span>
+                <span class="tag" style="font-size:.85rem;padding:6px 14px;">Exploiter, dépanner et superviser</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- VEILLE -->
+<section id="veille">
+    <div class="container">
+        <div class="section-number">05 / ACTUALITÉ</div>
+        <h2>Veille Technologique</h2>
+        <p class="section-intro">Le monde de l'informatique et du numérique est un monde fascinant qui ne cesse de s'améliorer au fur et à mesure des années, mois, jours ou heures. Rester informé est primordial pour ne pas être dépassé. C'est là toute l'importance d'une veille technologique qui permet de se tenir au courant des nouvelles actualités et des avancées du domaine.</p>
+        <p style="color:#7a8899;font-size:1rem;margin-bottom:50px;">Perdre le fil n'est pas une option lorsque nous voulons nous plonger dans cet univers et l'information reste au cœur de l'informatique. Voici donc une présentation de ma veille technologique !</p>
+
+        <div class="project-section">
+            <h3>Mes sources d'information</h3>
+            <p>Pour me tenir informé dans le milieu de l'informatique, j'utilise de nombreux moyens :</p>
+            <div class="sources-grid">
+                <div class="source-card"><div class="emoji">📊</div><h4>High-Tech · LeBigData</h4><a href="https://www.lebigdata.fr" target="_blank">www.lebigdata.fr</a></div>
+                <div class="source-card"><div class="emoji">🔒</div><h4>Cybersécurité · The Hacker News</h4><a href="https://thehackernews.com" target="_blank">thehackernews.com</a></div>
+                <div class="source-card"><div class="emoji">🌐</div><h4>Réseau · Cisco Blog</h4><a href="https://blogs.cisco.com/networking" target="_blank">blogs.cisco.com</a></div>
+                <div class="source-card"><div class="emoji">📱</div><h4>Réseaux sociaux</h4><span style="color:#667788;font-size:.82rem;">YouTube, Reddit, TikTok, Instagram...</span></div>
+            </div>
+            <p>Exemple d'influenceur Informatique de qualité :</p>
+            <div class="micode-banner">
+                <img src="https://static.wixstatic.com/media/27cb0c_ad0dc1c800bf41b1a32d982c6e32dc5d~mv2.png/v1/fill/w_840,h_233,al_c,lg_1,q_85,enc_avif,quality_auto/27cb0c_ad0dc1c800bf41b1a32d982c6e32dc5d~mv2.png" alt="Micode" />
+            </div>
+            <p>Avec ses 1,7 Millions d'abonnés et ses 110 Millions de vues sur YouTube, Micode représente une référence dans le milieu de l'Informatique. Il possède également un compte Instagram de 90 000 abonnés environ.</p>
+        </div>
+
+        <!-- ── VEILLE : Wi-Fi 7 ── -->
+        <div class="content-block" style="margin-top:60px; padding-top:60px; border-top:1px solid rgba(255,255,255,.05);">
+            <h3>Le Wi-Fi 7 : la révolution silencieuse du réseau sans fil en entreprise</h3>
+            <p>
+                Voici un sujet que je suis de près, directement en lien avec mon domaine de spécialité en SISR et avec les missions que je mène en alternance. Depuis 2025, une nouvelle génération de Wi-Fi débarque en entreprise : le <strong style="color:#d0e0f0;">Wi-Fi 7</strong>, aussi connu sous son nom technique <strong style="color:#d0e0f0;">IEEE 802.11be</strong>. Et le moins qu'on puisse dire, c'est que ce n'est pas une simple mise à jour cosmétique.
+            </p>
+
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/WiFi_Logo.svg/400px-WiFi_Logo.svg.png" alt="Wi-Fi logo" style="max-height:120px;background:#fff;padding:16px;border-radius:10px;object-fit:contain;">
+                </div>
+            </div>
+
+            <h4>Qu'est-ce que le Wi-Fi 7 concrètement ?</h4>
+            <p>
+                Le Wi-Fi 7 est la septième génération de la norme Wi-Fi, officiellement finalisée début 2024 et en déploiement massif depuis 2025. Sa grande nouveauté technique s'appelle le <strong style="color:#d0e0f0;">MLO (Multi-Link Operation)</strong> : un appareil peut se connecter simultanément sur plusieurs bandes de fréquence (2,4 GHz, 5 GHz et 6 GHz) en même temps, comme avoir plusieurs routes ouvertes en parallèle plutôt qu'une seule autoroute. Le résultat : des débits théoriques allant jusqu'à <strong style="color:#d0e0f0;">46 Gbit/s</strong> et une latence divisée par 3 par rapport au Wi-Fi 6.
+            </p>
+            <p>
+                En pratique, dans les tests réalisés en entreprise, on obtient des gains réels autour d'un facteur 3, ce qui reste très significatif. Surtout, la stabilité s'améliore nettement : moins de coupures, moins d'interférences, une meilleure gestion des nombreux appareils connectés simultanément.
+            </p>
+
+            <h4>Pourquoi c'est important en milieu professionnel ?</h4>
+            <p>
+                Les entreprises d'aujourd'hui font face à une explosion du nombre d'appareils connectés : ordinateurs, smartphones, tablettes, objets connectés (IoT), caméras de surveillance, imprimantes réseau, bornes de contrôle d'accès... Le Wi-Fi 6 commence à montrer ses limites dans les environnements denses. Le Wi-Fi 7 a justement été conçu pour y répondre, en gérant jusqu'à <strong style="color:#d0e0f0;">200 sessions simultanées par borne</strong>.
+            </p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0;">
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-zabbix"></span>Débit x3 à x5</div>
+                    <p>Des canaux élargis jusqu'à 320 MHz (contre 160 MHz pour le Wi-Fi 6) multiplient le débit réel, avec une modulation 4096-QAM pour une meilleure utilisation du spectre.</p>
+                    <div class="tags"><span class="tag">320 MHz</span><span class="tag">4096-QAM</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-ad"></span>Multi-Link Operation</div>
+                    <p>Le MLO permet à un appareil d'utiliser plusieurs bandes simultanément, éliminant les goulots d'étranglement et réduisant la latence de manière drastique.</p>
+                    <div class="tags"><span class="tag">MLO</span><span class="tag">Latence réduite</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-rack"></span>Résistance aux interférences</div>
+                    <p>Le « Preamble Puncturing » isole instantanément les fréquences polluées par des interférences, comme un GPS qui recalcule la route en évitant les embouteillages.</p>
+                    <div class="tags"><span class="tag">Preamble Puncturing</span><span class="tag">Fiabilité</span></div>
+                </div>
+                <div class="sisr-module">
+                    <div class="sisr-module-title"><span class="dot dot-server"></span>Sécurité renforcée</div>
+                    <p>Le Wi-Fi 7 intègre de nouvelles normes de sécurité (WPA4 à venir) et une meilleure gestion des accès pour les environnements professionnels exigeants.</p>
+                    <div class="tags"><span class="tag">WPA4</span><span class="tag">Sécurité</span></div>
+                </div>
+            </div>
+
+            <h4>Les chiffres du déploiement</h4>
+            <p>
+                Selon les données d'IDC et Gartner, plus de <strong style="color:#d0e0f0;">17 % des points d'accès professionnels</strong> sont déjà compatibles Wi-Fi 7 en 2025, et ce chiffre devrait doubler d'ici 2027. Le marché mondial du WLAN d'entreprise pesait environ 2,7 milliards de dollars au troisième trimestre 2025, porté par cette adoption rapide. D'ici 2028, on parle de <strong style="color:#d0e0f0;">2,1 milliards d'appareils</strong> compatibles Wi-Fi 7 livrés.
+            </p>
+
+            <h4>Et concrètement pour les techniciens réseau ?</h4>
+            <p>
+                Le déploiement du Wi-Fi 7 en entreprise n'est pas anodin. Il nécessite une planification rigoureuse : les nouveaux points d'accès sont plus gourmands en énergie et requièrent un câblage Ethernet performant (Cat 6a ou Cat 7) pour ne pas brider leurs capacités. Le PoE (Power over Ethernet) doit être dimensionné en conséquence. Passer au Wi-Fi 7, c'est souvent repenser une partie de l'infrastructure filaire en même temps.
+            </p>
+            <p>
+                C'est un sujet que je côtoie directement en alternance, notamment lorsque nous réalisons des audits réseau pour nos clients ou que nous conseillons sur l'évolution de leur infrastructure. Comprendre ces nouvelles normes est devenu indispensable pour tout technicien système et réseau qui se respecte.
+            </p>
+
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop" alt="Infrastructure réseau entreprise" onerror="this.style.display='none'">
+                </div>
+                <div class="image-item">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500&h=300&fit=crop" alt="Borne Wi-Fi professionnelle" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Sources -->
+            <div style="margin-top:36px; padding:22px 26px; background:#0a1018; border:1px solid rgba(255,255,255,.07); border-radius:12px;">
+                <p style="font-size:.82rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#445566; margin-bottom:14px;">📚 Sources</p>
+                <ul style="list-style:none; margin:0;">
+                    <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.88rem; color:#667788;">→ <strong style="color:#8899aa;">LeMagIT</strong> — <a href="https://www.lemagit.fr/conseil/Reseau-Comment-bien-commencer-le-deploiement-du-Wifi-7" target="_blank" style="color:#5ba3f5; text-decoration:none;">Déploiement du Wi-Fi 7 en entreprise</a> (Février 2026)</li>
+                    <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.88rem; color:#667788;">→ <strong style="color:#8899aa;">Hub One</strong> — <a href="https://www.hubone.fr/oneblog/wifi-7-migration-entreprises-avantages/" target="_blank" style="color:#5ba3f5; text-decoration:none;">Wi-Fi 7 : faut-il franchir le cap en entreprise ?</a> (Décembre 2025)</li>
+                    <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.88rem; color:#667788;">→ <strong style="color:#8899aa;">IDC / Gartner</strong> — Prévisions marché WLAN entreprise 2025–2027 (via Hub One & LeMagIT)</li>
+                    <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.88rem; color:#667788;">→ <strong style="color:#8899aa;">La Revue Tech</strong> — <a href="https://larevuetech.fr/comment-reussir-un-deploiement-iot-massif-en-entreprise-segmentation-securite-et-performance-au-coeur-du-reseau-sans-fil/" target="_blank" style="color:#5ba3f5; text-decoration:none;">Déploiement IoT massif & Wi-Fi 7</a> (Mars 2026)</li>
+                    <li style="padding:5px 0; font-size:.88rem; color:#667788;">→ <strong style="color:#8899aa;">NETGEAR Business</strong> — <a href="https://itrmobiles.com/articles/205891/deploiement-du-wifi-7-en-entreprise-7-ecueils-qui-pourraient-saverer-couteux.html" target="_blank" style="color:#5ba3f5; text-decoration:none;">7 écueils du déploiement Wi-Fi 7</a> (Avril 2025)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            Le Wi-Fi 7 n'est pas qu'une évolution technique de plus — c'est un changement de paradigme pour les réseaux d'entreprise. Dans un monde où chaque collaborateur connecte 3 à 5 appareils, la connectivité sans fil est devenue aussi critique que l'alimentation électrique.
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="brand-name">Lukas Mensa</div>
+            <div class="brand-desc">Étudiant en BTS SIO option SISR. Passionné par l'infrastructure réseau, la cybersécurité et les nouvelles technologies.</div>
+        </div>
+        <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#parcours">Parcours</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#e6">Projets E6</a></li>
+                <li><a href="#veille">Veille</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Contact</h5>
+            <ul>
+                <li><a href="mailto:lukas.mensa2104@gmail.com">lukas.mensa2104@gmail.com</a></li>
+                <li><a href="https://www.linkedin.com/in/lukas-mensa-5b131a346/" target="_blank">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Lukas Mensa. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<script>
+    const observerOptions = { threshold: 0.08, rootMargin: '0px 0px -80px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.project-section, .parcours-subsection, .content-block, .sisr-module, .list-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+</script>
+
+</body>
+</html>
