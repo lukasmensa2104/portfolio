@@ -287,6 +287,68 @@
             nav { padding:16px 30px; }
             .nav-links { gap:20px; }
         }
+        /* ── LIGHTBOX ── */
+        .schema-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: zoom-in;
+        }
+        .schema-wrapper::after {
+            content: '🔍 Cliquer pour agrandir';
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(0,0,0,.7);
+            color: #fff;
+            font-size: .78rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            letter-spacing: .03em;
+        }
+        .schema-wrapper img { display:block; }
+        .schema-wrapper:hover img { opacity: .92; }
+
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            cursor: zoom-out;
+        }
+        #lightbox.open { display: flex; }
+        #lightbox img {
+            max-width: 95vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 80px rgba(0,0,0,.8);
+        }
+        #lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 28px;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            line-height: 1;
+            background: rgba(255,255,255,.1);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+        #lightbox-close:hover { background: rgba(255,255,255,.25); }
     </style>
 </head>
 <body>
@@ -681,10 +743,12 @@
             <h4>Schéma de l'infrastructure</h4>
             <p>Le schéma ci-dessous illustre l'architecture complète déployée : flux Internet → Firewall → Switch L3 → Proxmox, avec le Windows Server/AD au centre du domaine m2l.net et les trois Unités Organisationnelles (OU) reliées aux postes clients.</p>
             <div class="img-row" style="justify-content:center;">
-                <img src="https://lukasmensa2104.github.io/portfolio/Schema_realisation_1.png"
-                     alt="Schéma infrastructure Active Directory M2L"
-                     style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
-                     onerror="this.style.background='#0e1520';this.style.padding='40px';this.alt='Schéma : Internet → Firewall → Switch L3 → Proxmox → Windows Server/AD (domaine m2l.net) avec OU Direction, Comptabilité, Informatique — VLAN 210 serveur / VLAN 250 utilisateurs';" />
+                <div class="schema-wrapper" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="https://lukasmensa2104.github.io/portfolio/Schema_realisation_1.png"
+                         alt="Schéma infrastructure Active Directory M2L"
+                         style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
+                         onerror="this.style.background='#0e1520';this.style.padding='40px';" />
+                </div>
             </div>
             <p class="img-caption" style="text-align:center;margin-top:10px;">Architecture Active Directory — domaine m2l.net · Proxmox · VLAN 210/250</p>
 
@@ -747,10 +811,12 @@
             <h4>Schéma de l'infrastructure</h4>
             <p>Le schéma ci-dessous illustre l'architecture complète : le serveur Debian/Zabbix est intégré au même environnement Proxmox que l'AD. Il supervise l'ensemble des VM via les agents et expose son interface web pour la consultation des métriques.</p>
             <div class="img-row" style="justify-content:center;">
-                <img src="https://lukasmensa2104.github.io/portfolio/Schema_realisation_2.png"
-                     alt="Schéma infrastructure supervision Zabbix M2L"
-                     style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
-                     onerror="this.style.background='#0e1520';this.style.padding='40px';this.alt='Schéma : Internet → Firewall → Switch L3 → Proxmox → Serveur Debian/Zabbix + Windows Server/AD (domaine m2l.net) avec accès web Zabbix';" />
+                <div class="schema-wrapper" onclick="openLightbox(this.querySelector('img').src)">
+                    <img src="https://lukasmensa2104.github.io/portfolio/Schema_realisation_2.png"
+                         alt="Schéma infrastructure supervision Zabbix M2L"
+                         style="max-width:700px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#fff;padding:10px;"
+                         onerror="this.style.background='#0e1520';this.style.padding='40px';" />
+                </div>
             </div>
             <p class="img-caption" style="text-align:center;margin-top:10px;">Architecture supervision Zabbix — domaine m2l.net · Proxmox · Debian Server</p>
 
@@ -909,7 +975,24 @@
     </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+    <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Schéma agrandi" onclick="event.stopPropagation()" />
+</div>
+
 <script>
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
     const observerOptions = { threshold: 0.08, rootMargin: '0px 0px -80px 0px' };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
